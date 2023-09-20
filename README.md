@@ -8,6 +8,12 @@
 # Run migrations
 $ php artisan migrate
 
+# Run seeders
+$ php artisan db:seed
+
+# Recreate db with seeding
+$ php artisan migrate:fresh --seed
+
 # Rollback migrations
 $ php artisan migrate:rollback
 
