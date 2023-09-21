@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Sound;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
 
 class SoundController extends Controller
@@ -28,9 +27,7 @@ class SoundController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string'],
-            'number' => [
-                'required', 'integer', Rule::unique('sound', 'number')
-            ]
+            'number' => ['required', 'integer']
         ]);
 
         $sound = Sound::query()
@@ -46,15 +43,13 @@ class SoundController extends Controller
 
     public function update(Request $request, int $soundId): Response
     {
-        $sound = Sound::query()
-            ->findOrFail($soundId);
-
         $data = $request->validate([
             'name' => ['required', 'string'],
-            'number' => [
-                'required', 'integer', Rule::unique('sound', 'number')->ignore($sound->number, 'number')
-            ]
+            'number' => ['required', 'integer']
         ]);
+
+        $sound = Sound::query()
+            ->findOrFail($soundId);
 
         $sound->update($data);
 

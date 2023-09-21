@@ -16,8 +16,7 @@ return new class extends Migration
 
             $table->integer('number')
                 ->nullable(false)
-                ->unsigned()
-                ->unique();
+                ->unsigned();
 
             $table->timestamps();
         });
