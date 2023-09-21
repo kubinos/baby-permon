@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ConfigLevelController;
 use App\Http\Controllers\Api\SoundController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::group(['prefix' => '/config/level'], function () {
+    Route::get('', [ConfigLevelController::class, 'index']);
+    Route::put('', [ConfigLevelController::class, 'update']);
+});
 
 Route::apiResource('sounds', SoundController::class)
     ->only(['index', 'show', 'store', 'update', 'destroy']);

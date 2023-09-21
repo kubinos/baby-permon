@@ -33,9 +33,24 @@ $ yarn build
 
 Build output is located in `public/build` directory.
 
-## Simple documentation
+## Simple endpoint documentation
 
 Every response with resources is wrapped in root `data` key.
+
+### Level config
+
+1. `[GET]     /api/config/level`
+2. `[PUT]     /api/config/level`
+
+#### Response and request item
+
+```json
+{
+    "level_1": 10,
+    "level_2": 20,
+    "level_3": 30
+}
+```
 
 ### Sound
 
@@ -49,9 +64,9 @@ Every response with resources is wrapped in root `data` key.
 
 ```json
 {
-  "id": 1,
-  "name": "Sound name",
-  "number": 1
+    "id": 1,
+    "name": "Sound name",
+    "number": 1
 }
 ```
 
@@ -59,7 +74,7 @@ Every response with resources is wrapped in root `data` key.
 
 ```json
 {
-  "name": "Sound name",
-  "number": 1
+    "name": "Sound name",
+    "number": 1
 }
 ```
