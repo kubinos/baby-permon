@@ -21,7 +21,7 @@ class SoundFactory extends Factory
     {
         return [
             'name' => $this->faker->colorName,
-            'number' => $this->faker->unique()->numberBetween(0, 100),
+            'number' => sprintf('%d.wav', $this->faker->unique()->numberBetween(0, 100)),
         ];
     }
 }

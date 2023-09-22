@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('name')
                 ->nullable(false);
 
-            $table->integer('number')
+            $table->string('number')
                 ->nullable(false)
                 ->unsigned();
 

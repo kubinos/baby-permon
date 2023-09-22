@@ -18,10 +18,6 @@ class Sound extends Model
         'number'
     ];
 
-    protected $casts = [
-        'number' => 'integer'
-    ];
-
     protected $hidden = [
         'created_at',
         'updated_at'

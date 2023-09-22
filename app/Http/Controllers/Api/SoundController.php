@@ -27,7 +27,7 @@ class SoundController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string'],
-            'number' => ['required', 'integer']
+            'number' => ['required', 'string']
         ]);
 
         $sound = Sound::query()
@@ -45,7 +45,7 @@ class SoundController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string'],
-            'number' => ['required', 'integer']
+            'number' => ['required', 'string']
         ]);
 
         $sound = Sound::query()
