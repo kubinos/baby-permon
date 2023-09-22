@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ConfigLevelController;
 use App\Http\Controllers\Api\SoundController;
 use App\Http\Controllers\Api\StationController;
+use App\Http\Controllers\Api\TaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,4 +27,7 @@ Route::apiResource('sounds', SoundController::class)
     ->only(['index', 'show', 'store', 'update', 'destroy']);
 
 Route::apiResource('stations', StationController::class)
+    ->only(['index', 'show', 'store', 'update', 'destroy']);
+
+Route::apiResource('tasks', TaskController::class)
     ->only(['index', 'show', 'store', 'update', 'destroy']);

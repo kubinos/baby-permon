@@ -6,6 +6,7 @@ use App\Enums\Location;
 use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Station extends Model
 {
@@ -27,4 +28,9 @@ class Station extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class, 'station_id', 'id');
+    }
 }
