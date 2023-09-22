@@ -11,9 +11,17 @@ return new class extends Migration
         Schema::create('config', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('threshold_level_1')->unsigned()->nullable(false);
-            $table->integer('threshold_level_2')->unsigned()->nullable(false);
-            $table->integer('threshold_level_3')->unsigned()->nullable(false);
+            $table->integer('threshold_level_1')
+                ->unsigned()
+                ->nullable(false);
+
+            $table->integer('threshold_level_2')
+                ->unsigned()
+                ->nullable(false);
+
+            $table->integer('threshold_level_3')
+                ->unsigned()
+                ->nullable(false);
         });
     }
 
