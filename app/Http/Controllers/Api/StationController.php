@@ -2,24 +2,26 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\Location;
 use App\Http\Controllers\Controller;
-use App\Models\Sound;
+use App\Models\Station;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Enum;
 use Symfony\Component\HttpFoundation\Response;
 
-class SoundController extends Controller
+class StationController extends Controller
 {
     public function index(): Response
     {
         return response()->json([
-            'data' => Sound::all(),
+            'data' => Station::all(),
         ]);
     }
 
-    public function show(int $soundId): Response
+    public function show(int $stationId): Response
     {
         return response()->json([
-            'data' => Sound::query()->findOrFail($soundId),
+            'data' => Station::query()->findOrFail($stationId),
         ]);
     }
 
@@ -27,38 +29,38 @@ class SoundController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string'],
-            'number' => ['required', 'string']
+            'location' => ['required', 'string', new Enum(Location::class)]
         ]);
 
-        $sound = Sound::query()
+        $station = Station::query()
             ->create($data);
 
         return response()->json(
             [
-                'data' => $sound,
+                'data' => $station,
             ],
             Response::HTTP_CREATED
         );
     }
 
-    public function update(Request $request, int $soundId): Response
+    public function update(Request $request, int $stationId): Response
     {
         $data = $request->validate([
             'name' => ['required', 'string'],
-            'number' => ['required', 'string']
+            'location' => ['required', 'string', new Enum(Location::class)]
         ]);
 
-        $sound = Sound::query()
-            ->findOrFail($soundId);
+        $station = Station::query()
+            ->findOrFail($stationId);
 
-        $sound->update($data);
+        $station->update($data);
 
         return response()->noContent();
     }
 
-    public function destroy(int $soundId): Response
+    public function destroy(int $stationId): Response
     {
-        Sound::destroy($soundId);
+        Station::destroy($stationId);
 
         return response()->noContent();
     }

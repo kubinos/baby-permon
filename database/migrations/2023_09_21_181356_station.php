@@ -8,13 +8,13 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('sound', function (Blueprint $table) {
+        Schema::create('station', function (Blueprint $table) {
             $table->id();
 
             $table->string('name')
                 ->nullable(false);
 
-            $table->string('number')
+            $table->string('location')
                 ->nullable(false);
 
             $table->timestamps();
@@ -23,6 +23,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('sound');
+        Schema::dropIfExists('station');
     }
 };

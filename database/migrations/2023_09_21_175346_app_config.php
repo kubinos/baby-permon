@@ -8,21 +8,25 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('sound', function (Blueprint $table) {
+        Schema::create('config', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name')
+            $table->integer('threshold_level_1')
+                ->unsigned()
                 ->nullable(false);
 
-            $table->string('number')
+            $table->integer('threshold_level_2')
+                ->unsigned()
                 ->nullable(false);
 
-            $table->timestamps();
+            $table->integer('threshold_level_3')
+                ->unsigned()
+                ->nullable(false);
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('sound');
+        Schema::dropIfExists('config');
     }
 };
