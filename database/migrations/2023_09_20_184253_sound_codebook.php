@@ -15,8 +15,7 @@ return new class extends Migration
                 ->nullable(false);
 
             $table->string('number')
-                ->nullable(false)
-                ->unsigned();
+                ->nullable(false);
 
             $table->timestamps();
         });
