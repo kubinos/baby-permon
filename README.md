@@ -105,3 +105,66 @@ Every response with resources is wrapped in root `data` key.
     "location": "under-world"
 }
 ```
+
+### Task
+
+1. `[GET]     /api/tasks`
+2. `[GET]     /api/tasks/{taskId}`
+3. `[POST]    /api/tasks`
+4. `[PUT]     /api/tasks/{taskId}`
+5. `[DELETE]  /api/tasks/{taskId}`
+
+#### Response item (1,2,3)
+
+```json
+{
+    "id": 1,
+    "name": "officia",
+    "difficulty": 2,
+    "station": {
+        "id": 1,
+        "name": "New Alexis",
+        "location": "under-world"
+    },
+    "soundCs": {
+        "id": 1,
+        "name": "Tomato",
+        "number": "55.wav"
+    },
+    "soundEn": {
+        "id": 2,
+        "name": "Bisque",
+        "number": "97.wav"
+    },
+    "soundDe": {
+        "id": 3,
+        "name": "Purple",
+        "number": "64.wav"
+    },
+    "responseNumber": "2",
+    "responseColor": "red",
+    "responseShape": "rectangle",
+    "pointsCorrect": 9,
+    "pointsPartial": 6,
+    "pointsIncorrect": 1
+}
+```
+
+#### Request item (3,4)
+
+```json
+{
+    "name": "officia",
+    "difficulty": 4,
+    "stationId": 11,
+    "soundCsId": 12,
+    "soundEnId": 23,
+    "soundDeId": 34,
+    "responseNumber": "2",
+    "responseColor": "red",
+    "responseShape": "rectangle",
+    "pointsCorrect": 9,
+    "pointsPartial": 6,
+    "pointsIncorrect": 1
+}
+```
