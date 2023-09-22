@@ -66,7 +66,7 @@ Every response with resources is wrapped in root `data` key.
 {
     "id": 1,
     "name": "Sound name",
-    "number": 1
+    "number": "2.wav"
 }
 ```
 
@@ -75,6 +75,33 @@ Every response with resources is wrapped in root `data` key.
 ```json
 {
     "name": "Sound name",
-    "number": 1
+    "number": "2.wav"
+}
+```
+
+### Station
+
+1. `[GET]     /api/stations`
+2. `[GET]     /api/stations/{stationId}`
+3. `[POST]    /api/stations`
+4. `[PUT]     /api/stations/{stationId}`
+5. `[DELETE]  /api/stations/{stationId}`
+
+#### Response item (1,2,3)
+
+```json
+{
+    "id": 1,
+    "name": "Sound name",
+    "location": "under-world"
+}
+```
+
+#### Request item (3,4)
+
+```json
+{
+    "name": "Sound name",
+    "location": "under-world"
 }
 ```
