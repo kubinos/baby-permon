@@ -168,3 +168,34 @@ Every response with resources is wrapped in root `data` key.
     "pointsIncorrect": 1
 }
 ```
+
+### Game
+
+1. `[GET]     /api/games/{gameId}`
+2. `[POST]    /api/games`
+3. `[DELETE]  /api/games/{gameId}`
+
+#### Response item (1,2)
+
+```json
+{
+    "id": 1,
+    "chip": "1234567890",
+    "salutatuion": "Mr.",
+    "level": 1,
+    "emotion": "happy",
+    "language": "cs"
+}
+```
+
+#### Request item (2)
+
+```json
+{
+    "chip": "1234567890",
+    "salutatuion": "Mrs.",
+    "level": 2,
+    "emotion": "sad",
+    "language": "de"
+}
+```

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ConfigLevelController;
+use App\Http\Controllers\Api\GameController;
 use App\Http\Controllers\Api\SoundController;
 use App\Http\Controllers\Api\StationController;
 use App\Http\Controllers\Api\TaskController;
@@ -31,3 +32,6 @@ Route::apiResource('stations', StationController::class)
 
 Route::apiResource('tasks', TaskController::class)
     ->only(['index', 'show', 'store', 'update', 'destroy']);
+
+Route::apiResource('games', GameController::class)
+    ->only(['show', 'store', 'destroy']);
