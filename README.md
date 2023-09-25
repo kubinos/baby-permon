@@ -173,10 +173,11 @@ Every response with resources is wrapped in root `data` key.
 
 ### Game
 
-1. `[POST]    /api/games`
-2. `[DELETE]  /api/games/{gameChip}`
+1. `[GET]     /api/games`
+2. `[POST]    /api/games`
+3. `[DELETE]  /api/games/{gameChip}`
 
-#### Response item (1)
+#### Response item (1,2)
 
 ```json
 {
@@ -185,11 +186,12 @@ Every response with resources is wrapped in root `data` key.
     "salutatuion": "Mr.",
     "level": 1,
     "emotion": "happy",
-    "language": "cs"
+    "language": "cs",
+    "expiration": "2023-09-25T23:21:40+02:00"
 }
 ```
 
-#### Request item (1)
+#### Request item (2)
 
 ```json
 {

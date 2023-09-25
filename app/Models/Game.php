@@ -5,6 +5,9 @@ namespace App\Models;
 use App\Enums\Emotion;
 use App\Enums\Language;
 use App\Enums\Level;
+use DateTimeInterface;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,12 +29,17 @@ class Game extends Model
         'language',
     ];
 
+    protected $appends = [
+        'expiration',
+    ];
+
     protected $casts = [
         'chip' => 'string',
         'salutation' => 'string',
         'level' => Level::class,
         'emotion' => Emotion::class,
         'language' => Language::class,
+        'expiration' => 'datetime',
     ];
 
     protected $hidden = [
@@ -40,6 +48,23 @@ class Game extends Model
         'deleted_at',
     ];
 
+    public function expiration(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->created_at->addHours(config('game.limit.hours')),
+        );
+    }
+
+    public function scopeActive(Builder $query): Builder
+    {
+        $subHours = now()->subHours(config('game.limit.hours'));
+
+        return $query
+            ->where('created_at', '>=', $subHours)
+            ->whereNull('deleted_at')
+        ;
+    }
+
     public function hasEnded(): bool
     {
         if ($this->deleted_at !== null) {
@@ -47,5 +72,10 @@ class Game extends Model
         }
 
         return now()->diffInHours($this->created_at) >= config('game.limit.hours');
+    }
+
+    protected function serializeDate(DateTimeInterface $date): string
+    {
+        return $date->format('c');
     }
 }
