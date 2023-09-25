@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Config;
+use App\Models\Game;
 use App\Models\Sound;
 use App\Models\Station;
 use App\Models\Task;
@@ -39,6 +40,10 @@ class DatabaseSeeder extends Seeder
                         'soundDe',
                     )
             )
+            ->create();
+
+        Game::factory()
+            ->count(17)
             ->create();
     }
 }

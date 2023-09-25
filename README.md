@@ -13,6 +13,8 @@ $ php artisan db:seed
 
 # Recreate db with seeding
 $ php artisan migrate:fresh --seed
+# -- or --
+$ make db-dev
 
 # Rollback migrations
 $ php artisan migrate:rollback
@@ -166,5 +168,35 @@ Every response with resources is wrapped in root `data` key.
     "pointsCorrect": 9,
     "pointsPartial": 6,
     "pointsIncorrect": 1
+}
+```
+
+### Game
+
+1. `[POST]    /api/games`
+2. `[DELETE]  /api/games/{gameChip}`
+
+#### Response item (1)
+
+```json
+{
+    "id": 1,
+    "chip": "1234567890",
+    "salutatuion": "Mr.",
+    "level": 1,
+    "emotion": "happy",
+    "language": "cs"
+}
+```
+
+#### Request item (1)
+
+```json
+{
+    "chip": "1234567890",
+    "salutatuion": "Mrs.",
+    "level": 2,
+    "emotion": "sad",
+    "language": "de"
 }
 ```

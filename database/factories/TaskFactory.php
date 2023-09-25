@@ -2,11 +2,15 @@
 
 namespace Database\Factories;
 
+use App\Enums\Color;
+use App\Enums\Difficulty;
+use App\Enums\Number;
+use App\Enums\Shape;
 use App\Models\Task;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Task>
+ * @extends Factory<Task>
  */
 class TaskFactory extends Factory
 {
@@ -21,10 +25,10 @@ class TaskFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'difficulty' => $this->faker->randomElement(\App\Enums\Difficulty::cases()),
-            'response_number' => $this->faker->randomElement(\App\Enums\Number::cases()),
-            'response_color' => $this->faker->randomElement(\App\Enums\Color::cases()),
-            'response_shape' => $this->faker->randomElement(\App\Enums\Shape::cases()),
+            'difficulty' => $this->faker->randomElement(Difficulty::cases()),
+            'response_number' => $this->faker->randomElement(Number::cases()),
+            'response_color' => $this->faker->randomElement(Color::cases()),
+            'response_shape' => $this->faker->randomElement(Shape::cases()),
             'points_correct' => $this->faker->numberBetween(8, 10),
             'points_partial' => $this->faker->numberBetween(2, 7),
             'points_incorrect' => $this->faker->numberBetween(0, 1),
