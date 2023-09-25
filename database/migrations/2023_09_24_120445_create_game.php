@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('language')
                 ->nullable(false);
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

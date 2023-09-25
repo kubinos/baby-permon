@@ -13,13 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GameController extends Controller
 {
-    public function show(int $gameId): Response
-    {
-        return response()->json([
-            'data' => Game::query()->findOrFail($gameId),
-        ]);
-    }
-
     public function store(Request $request): Response
     {
         $data = $request->validate([
@@ -41,9 +34,12 @@ class GameController extends Controller
         );
     }
 
-    public function destroy(int $gameId): Response
+    public function destroy(string $chip): Response
     {
-        Game::destroy($gameId);
+        $game = Game::query()->firstWhere(['chip' => $chip]);
+        if ($game instanceof Game) {
+            $game->delete();
+        }
 
         return response()->noContent();
     }

@@ -173,11 +173,10 @@ Every response with resources is wrapped in root `data` key.
 
 ### Game
 
-1. `[GET]     /api/games/{gameId}`
-2. `[POST]    /api/games`
-3. `[DELETE]  /api/games/{gameId}`
+1. `[POST]    /api/games`
+2. `[DELETE]  /api/games/{gameChip}`
 
-#### Response item (1,2)
+#### Response item (1)
 
 ```json
 {
@@ -190,7 +189,7 @@ Every response with resources is wrapped in root `data` key.
 }
 ```
 
-#### Request item (2)
+#### Request item (1)
 
 ```json
 {

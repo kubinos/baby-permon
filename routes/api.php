@@ -20,8 +20,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => '/config/level'], function () {
-    Route::get('', [ConfigLevelController::class, 'index']);
-    Route::put('', [ConfigLevelController::class, 'update']);
+    Route::get('', [ConfigLevelController::class, 'index'])
+        ->name('config.level.index');
+
+    Route::put('', [ConfigLevelController::class, 'update'])
+        ->name('config.level.update');
 });
 
 Route::apiResource('sounds', SoundController::class)
@@ -33,5 +36,10 @@ Route::apiResource('stations', StationController::class)
 Route::apiResource('tasks', TaskController::class)
     ->only(['index', 'show', 'store', 'update', 'destroy']);
 
-Route::apiResource('games', GameController::class)
-    ->only(['show', 'store', 'destroy']);
+Route::group(['prefix' => '/games'], function () {
+    Route::post('/games', [GameController::class, 'store'])
+        ->name('games.store');
+
+    Route::delete('/games/{chip}', [GameController::class, 'destroy'])
+        ->name('games.destroy');
+});
