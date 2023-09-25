@@ -37,9 +37,12 @@ Route::apiResource('tasks', TaskController::class)
     ->only(['index', 'show', 'store', 'update', 'destroy']);
 
 Route::group(['prefix' => '/games'], function () {
-    Route::post('/games', [GameController::class, 'store'])
+    Route::get('', [GameController::class, 'index'])
+        ->name('games.index');
+
+    Route::post('', [GameController::class, 'store'])
         ->name('games.store');
 
-    Route::delete('/games/{chip}', [GameController::class, 'destroy'])
+    Route::delete('/{chip}', [GameController::class, 'destroy'])
         ->name('games.destroy');
 });
