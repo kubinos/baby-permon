@@ -1,5 +1,52 @@
 <script setup>
-const name = 'Vue 3';
+import { computed, ref } from 'vue';
+
+const menu = ref([
+  {
+    name: 'Založit hru',
+    route: 'game_start',
+    icon: 'add'
+  },
+  {
+    name: 'Ukončit hru',
+    route: 'game_end',
+    icon: 'remove'
+  },
+  {
+    name: 'Hráči',
+    route: 'game_players',
+    icon: 'group'
+  },
+  {
+    name: 'Zvuky',
+    route: 'admin_sounds',
+    icon: 'music_note'
+  },
+  {
+    name: 'Umístění',
+    route: 'admin_locations',
+    icon: 'location_on'
+  },
+  {
+    name: 'Úkoly',
+    route: 'admin_tasks',
+    icon: 'checklist'
+  },
+  {
+    name: 'Obtížnost',
+    route: 'admin_levels',
+    icon: 'show_chart'
+  }
+]);
+
+const gameMenu = computed(() => {
+  return menu.value.filter(item => item.route.startsWith('game'));
+});
+
+const adminMenu = computed(() => {
+  return menu.value.filter(item => item.route.startsWith('admin'));
+});
+
 </script>
 
 <template>
@@ -25,30 +72,18 @@ const name = 'Vue 3';
           {{ 'Pokladna' }}
         </q-item-label>
 
-        <q-item v-ripple clickable :to="{ name: 'game_start' }">
+        <q-item
+          v-for="{ name, route, icon } in gameMenu"
+          :key="route"
+          v-ripple
+          clickable
+          :to="{ name: route }"
+        >
           <q-item-section avatar>
-            <q-icon name="add" />
+            <q-icon :name="icon" />
           </q-item-section>
           <q-item-section>
-            {{ 'Založit hru' }}
-          </q-item-section>
-        </q-item>
-
-        <q-item v-ripple clickable :to="{ name: 'game_end' }">
-          <q-item-section avatar>
-            <q-icon name="remove" />
-          </q-item-section>
-          <q-item-section>
-            {{ 'Ukončit hru' }}
-          </q-item-section>
-        </q-item>
-
-        <q-item v-ripple clickable :to="{ name: 'game_players' }">
-          <q-item-section avatar>
-            <q-icon name="group" />
-          </q-item-section>
-          <q-item-section>
-            {{ 'Hráči' }}
+            {{ name }}
           </q-item-section>
         </q-item>
 
@@ -58,46 +93,31 @@ const name = 'Vue 3';
           {{ 'Administrace' }}
         </q-item-label>
 
-        <q-item v-ripple clickable>
+        <q-item
+          v-for="{ name, route, icon } in adminMenu"
+          :key="route"
+          v-ripple
+          clickable
+          :to="{ name: route }"
+        >
           <q-item-section avatar>
-            <q-icon name="music_note" />
+            <q-icon :name="icon" />
           </q-item-section>
           <q-item-section>
-            {{ 'Zvuky' }}
-          </q-item-section>
-        </q-item>
-
-        <q-item v-ripple clickable>
-          <q-item-section avatar>
-            <q-icon name="location_on" />
-          </q-item-section>
-          <q-item-section>
-            {{ 'Umístění' }}
-          </q-item-section>
-        </q-item>
-
-        <q-item v-ripple clickable>
-          <q-item-section avatar>
-            <q-icon name="checklist" />
-          </q-item-section>
-          <q-item-section>
-            {{ 'Úkoly' }}
-          </q-item-section>
-        </q-item>
-
-        <q-item v-ripple clickable>
-          <q-item-section avatar>
-            <q-icon name="show_chart" />
-          </q-item-section>
-          <q-item-section>
-            {{ 'Obtížnost' }}
+            {{ name }}
           </q-item-section>
         </q-item>
       </q-list>
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <q-page padding>
+        <div class="row">
+          <div class="offset-3 col-6">
+            <router-view />
+          </div>
+        </div>
+      </q-page>
     </q-page-container>
   </q-layout>
 </template>
