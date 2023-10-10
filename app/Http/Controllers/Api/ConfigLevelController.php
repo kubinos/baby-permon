@@ -36,8 +36,8 @@ class ConfigLevelController extends Controller
 
         $config->update([
             'threshold_level_1' => $data['level_1'],
-            'threshold_level_2' => $data['level_1'],
-            'threshold_level_3' => $data['level_1'],
+            'threshold_level_2' => $data['level_2'],
+            'threshold_level_3' => $data['level_3'],
         ]);
 
         return response()->noContent();
