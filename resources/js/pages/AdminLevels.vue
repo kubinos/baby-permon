@@ -1,7 +1,89 @@
 <script setup>
+import { useQuasar } from 'quasar';
+import { onMounted, ref } from 'vue';
+import { getLevels, updateLevels } from '../api.js';
+import { rules } from '../rules.js';
 
+const $q = useQuasar();
+
+const levels = ref({
+  level_1: 0,
+  level_2: 0,
+  level_3: 0
+});
+
+const form = ref(null);
+
+onMounted(() => {
+  form.value.resetValidation();
+
+  getLevels().then(({ data }) => {
+    levels.value = data.data;
+  });
+});
+
+function onSubmit () {
+  if (!form.value.validate()) {
+    return;
+  }
+
+  updateLevels(levels.value).then(() => {
+    $q.notify({
+      color: 'positive',
+      message: 'Obtížnost byla nastavena.',
+      position: 'bottom-right'
+    });
+  }).catch(() => {
+    $q.notify({
+      color: 'negative',
+      message: 'Obtížnost se nepodařilo nastavit.',
+      position: 'bottom-right'
+    });
+  });
+}
 </script>
 
 <template>
-  <h1>Game Start</h1>
+  <div class="row">
+    <div class="col">
+      <h1 class="text-h4">Nastavení obtížnosti</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <q-form ref="form" class="q-gutter-md" @submit="onSubmit">
+        <q-input
+          v-model="levels.level_1"
+          filled
+          label="Úroveň 1"
+          lazy-rules
+          :rules="[rules.required]"
+        />
+        <q-input
+          v-model="levels.level_2"
+          filled
+          label="Úroveň 2"
+          lazy-rules
+          :rules="[rules.required]"
+        />
+        <q-input
+          v-model="levels.level_3"
+          filled
+          label="Úroveň 3"
+          lazy-rules
+          :rules="[rules.required]"
+        />
+
+        <div>
+          <q-btn
+            unelevated
+            type="submit"
+            color="primary"
+            label="Nastavit"
+          />
+        </div>
+      </q-form>
+    </div>
+  </div>
 </template>

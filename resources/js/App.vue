@@ -1,5 +1,10 @@
 <script setup>
+import { useQuasar } from 'quasar';
 import { computed, ref } from 'vue';
+
+const $q = useQuasar();
+
+$q.dark.set(true);
 
 const menu = ref([
   {
@@ -46,12 +51,11 @@ const gameMenu = computed(() => {
 const adminMenu = computed(() => {
   return menu.value.filter(item => item.route.startsWith('admin'));
 });
-
 </script>
 
 <template>
   <q-layout view="hHh Lpr lFf">
-    <q-header elevated>
+    <q-header>
       <q-toolbar>
         <q-icon name="extension" size="26px" />
 
@@ -59,7 +63,7 @@ const adminMenu = computed(() => {
           {{ 'Baby Permon' }}
         </q-toolbar-title>
 
-        <q-btn push color="white" text-color="black" label="Odhlášení" />
+        <q-btn flat icon-right="logout" text-color="white" label="Odhlášení" />
       </q-toolbar>
     </q-header>
 

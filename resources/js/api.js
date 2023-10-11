@@ -3,11 +3,11 @@ import axios from 'axios';
 // levels
 
 export function getLevels() {
-  return axios.get('/api/config/levels');
+  return axios.get('/api/config/level');
 }
 
 export function updateLevels(levels) {
-  return axios.put('/api/config/levels', levels);
+  return axios.put('/api/config/level', levels);
 }
 
 // sounds
