@@ -4,7 +4,7 @@ import { computed, ref } from 'vue';
 
 const $q = useQuasar();
 
-$q.dark.set(true);
+const drawer = ref(true);
 
 const menu = ref([
   {
@@ -57,17 +57,23 @@ const adminMenu = computed(() => {
   <q-layout view="hHh Lpr lFf">
     <q-header>
       <q-toolbar>
-        <q-icon name="extension" size="26px" />
+        <q-btn flat round dense icon="menu" aria-label="Menu" @click="drawer = !drawer" />
+
+        <q-icon name="extension" class="q-ml-sm" size="26px" />
 
         <q-toolbar-title>
           {{ 'Baby Permon' }}
         </q-toolbar-title>
 
+        <q-btn v-if="$q.dark.isActive" flat round dense icon="light_mode" @click="$q.dark.set(false)" />
+        <q-btn v-else flat round dense icon="dark_mode" @click="$q.dark.set(true)" />
+        <q-separator class="q-mx-sm" vertical inset />
         <q-btn flat icon-right="logout" text-color="white" label="Odhlášení" />
       </q-toolbar>
     </q-header>
 
     <q-drawer
+      v-model="drawer"
       show-if-above
       bordered
     >
@@ -116,11 +122,7 @@ const adminMenu = computed(() => {
 
     <q-page-container>
       <q-page padding>
-        <div class="row">
-          <div class="offset-3 col-6">
-            <router-view />
-          </div>
-        </div>
+        <router-view />
       </q-page>
     </q-page-container>
   </q-layout>
