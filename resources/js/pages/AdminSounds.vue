@@ -83,7 +83,6 @@ function onSubmit () {
   const isEdit = sound.value.hasOwnProperty('id');
 
   if (isEdit) {
-
     updateSound(sound.value).then(() => {
       fetchSounds();
 

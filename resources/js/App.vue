@@ -28,7 +28,7 @@ const menu = ref([
     icon: 'music_note'
   },
   {
-    name: 'Umístění',
+    name: 'Stanice',
     route: 'admin_locations',
     icon: 'location_on'
   },
