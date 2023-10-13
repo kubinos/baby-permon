@@ -1,18 +1,17 @@
-import { createApp } from 'vue';
-import { Quasar, Notify, Dialog } from 'quasar';
-import quasarLang from 'quasar/lang/cs';
-
 // Import icon libraries
 import '@quasar/extras/material-icons/material-icons.css';
+import { Dialog, Notify, Quasar } from 'quasar';
+import quasarLang from 'quasar/lang/cs';
 
 // Import Quasar css
 import 'quasar/src/css/index.sass';
-
-import { router } from './router/router'
+import { createApp } from 'vue';
 
 // Assumes your root component is App.vue
 // and placed in same folder as main.js
 import App from './App.vue';
+
+import { router } from './router/router';
 
 const app = createApp(App);
 

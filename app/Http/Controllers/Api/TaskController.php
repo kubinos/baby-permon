@@ -36,7 +36,7 @@ class TaskController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string'],
-            'difficulty' => ['required', 'string', new Enum(Difficulty::class)],
+            'difficulty' => ['required', new Enum(Difficulty::class)],
             'stationId' => ['required', 'integer', 'exists:station,id'],
             'soundCsId' => ['required', 'integer', 'exists:sound,id'],
             'soundEnId' => ['required', 'integer', 'exists:sound,id'],
@@ -77,7 +77,7 @@ class TaskController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string'],
-            'difficulty' => ['required', 'string', new Enum(Difficulty::class)],
+            'difficulty' => ['required', new Enum(Difficulty::class)],
             'stationId' => ['required', 'integer', 'exists:station,id'],
             'soundCsId' => ['required', 'integer', 'exists:sound,id'],
             'soundEnId' => ['required', 'integer', 'exists:sound,id'],

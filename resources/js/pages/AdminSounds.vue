@@ -39,6 +39,7 @@ const columns = [
 
 const form = ref(null);
 const dialog = ref(false);
+const dialogTitle = ref('Vytvořit nový zvuk');
 const rows = ref();
 
 const sound = ref({
@@ -58,6 +59,7 @@ onMounted(() => {
 
 watch(dialog, (value) => {
   if (!value) {
+    dialogTitle.value = 'Vytvořit nový zvuk';
     form.value.resetValidation();
     sound.value = {
       name: null,
@@ -69,6 +71,10 @@ watch(dialog, (value) => {
 function open (data) {
   sound.value = { ...data };
   dialog.value = true;
+
+  if (data.hasOwnProperty('id')) {
+    dialogTitle.value = 'Upravit zvuk';
+  }
 }
 
 function submit () {
@@ -157,11 +163,11 @@ function remove (data) {
   <div class="row">
     <div class="col">
       <q-table
-        flat
-        bordered
         :columns="columns"
-        :rows="rows"
         :pagination="{ rowsPerPage: 20 }"
+        :rows="rows"
+        bordered
+        flat
       >
         <template v-slot:top>
           <q-space />
@@ -169,8 +175,8 @@ function remove (data) {
         </template>
         <template v-slot:body-cell-actions="props">
           <q-td :props="props">
-            <q-btn flat round color="primary" icon="edit" @click="open(props.row)" />
-            <q-btn flat round color="negative" icon="delete" @click="remove(props.row)" />
+            <q-btn color="primary" flat icon="edit" round @click="open(props.row)" />
+            <q-btn color="negative" flat icon="delete" round @click="remove(props.row)" />
           </q-td>
         </template>
       </q-table>
@@ -180,33 +186,33 @@ function remove (data) {
   <q-dialog v-model="dialog">
     <q-card style="min-width: 500px;">
       <q-card-section class="row items-center q-pb-none">
-        <div class="text-h6">Vytvořit nový zvuk</div>
+        <div class="text-h6">{{ dialogTitle }}</div>
         <q-space />
-        <q-btn icon="close" flat round dense v-close-popup />
+        <q-btn v-close-popup dense flat icon="close" round />
       </q-card-section>
 
       <q-card-section>
         <q-form ref="form" class="q-gutter-md" @submit="onSubmit">
           <q-input
             v-model="sound.name"
+            :rules="[rules.required]"
             filled
             label="Název"
             lazy-rules
-            :rules="[rules.required]"
           />
           <q-input
             v-model="sound.number"
+            :rules="[rules.required]"
             filled
             label="Číslo"
             lazy-rules
-            :rules="[rules.required]"
           />
         </q-form>
       </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn flat label="Zrušit" v-close-popup />
-        <q-btn flat color="primary" label="Uložit" @click="submit" />
+        <q-btn v-close-popup flat label="Zrušit" />
+        <q-btn color="primary" flat label="Uložit" @click="submit" />
       </q-card-actions>
     </q-card>
   </q-dialog>

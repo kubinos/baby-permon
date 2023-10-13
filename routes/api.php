@@ -27,6 +27,9 @@ Route::group(['prefix' => '/config/level'], function () {
         ->name('config.level.update');
 });
 
+Route::get('/config/enums', [ConfigLevelController::class, 'enums'])
+    ->name('config.enums');
+
 Route::apiResource('sounds', SoundController::class)
     ->only(['index', 'show', 'store', 'update', 'destroy']);
 

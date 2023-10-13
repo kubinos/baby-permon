@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\Color;
+use App\Enums\Difficulty;
+use App\Enums\Emotion;
+use App\Enums\Number;
+use App\Enums\Shape;
 use App\Http\Controllers\Controller;
 use App\Models\Config;
 use Illuminate\Http\Request;
@@ -20,6 +25,17 @@ class ConfigLevelController extends Controller
                 'level_2' => $config->threshold_level_2,
                 'level_3' => $config->threshold_level_3,
             ]
+        ]);
+    }
+
+    public function enums(): Response
+    {
+        return response()->json([
+            'colors' => array_map(fn (Color $enum) => ['key' => $enum->value, 'value' => $enum->toString()], Color::cases()),
+            'emotions' => array_map(fn (Emotion $enum) => ['key' => $enum->value, 'value' => $enum->toString()], Emotion::cases()),
+            'shapes' => array_map(fn (Shape $enum) => ['key' => $enum->value, 'value' => $enum->toString()], Shape::cases()),
+            'difficulties' => array_map(fn (Difficulty $enum) => ['key' => $enum->value, 'value' => $enum->toString()], Difficulty::cases()),
+            'numbers' => array_map(fn (Number $enum) => ['key' => $enum->value, 'value' => $enum->toString()], Number::cases()),
         ]);
     }
 

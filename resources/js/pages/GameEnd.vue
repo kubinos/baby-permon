@@ -14,18 +14,18 @@
       <q-form>
         <div class="q-pb-md q-pt-md">
           <q-input
+            :rules="[val => !!val || 'Název hry je povinný']"
             filled
             label="Čip"
             lazy-rules
-            :rules="[val => !!val || 'Název hry je povinný']"
           />
         </div>
 
         <q-btn
-          unelevated
-          type="submit"
           color="primary"
           label="Ukončit hru"
+          type="submit"
+          unelevated
         />
       </q-form>
     </div>

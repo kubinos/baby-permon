@@ -10,4 +10,14 @@ enum Color: string
     case Green = 'green';
     case Blue = 'blue';
     case Yellow = 'yellow';
+
+    public function toString(): string
+    {
+        return match ($this) {
+            self::Red => 'Červená',
+            self::Green => 'Zelená',
+            self::Blue => 'Modrá',
+            self::Yellow => 'Žlutá',
+        };
+    }
 }

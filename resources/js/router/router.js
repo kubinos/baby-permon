@@ -40,4 +40,4 @@ export const router = createRouter({
       component: () => import('../pages/AdminLevels.vue')
     }
   ]
-})
+});

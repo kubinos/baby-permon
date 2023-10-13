@@ -57,32 +57,32 @@ function onSubmit () {
           <q-form ref="form" class="q-gutter-md" @submit="onSubmit">
             <q-input
               v-model="levels.level_1"
+              :rules="[rules.required]"
               filled
               label="Úroveň 1"
               lazy-rules
-              :rules="[rules.required]"
             />
             <q-input
               v-model="levels.level_2"
+              :rules="[rules.required]"
               filled
               label="Úroveň 2"
               lazy-rules
-              :rules="[rules.required]"
             />
             <q-input
               v-model="levels.level_3"
+              :rules="[rules.required]"
               filled
               label="Úroveň 3"
               lazy-rules
-              :rules="[rules.required]"
             />
 
             <div>
               <q-btn
-                unelevated
-                type="submit"
                 color="primary"
                 label="Nastavit"
+                type="submit"
+                unelevated
               />
             </div>
           </q-form>

@@ -53,10 +53,11 @@ const options = [
     label: 'Obrázková aktivita',
     value: 'picture-activity'
   }
-]
+];
 
 const form = ref(null);
 const dialog = ref(false);
+const dialogTitle = ref('Vytvořit nové stanoviště');
 const rows = ref();
 
 const station = ref({
@@ -76,6 +77,7 @@ onMounted(() => {
 
 watch(dialog, (value) => {
   if (!value) {
+    dialogTitle.value = 'Vytvořit nové stanoviště';
     form.value.resetValidation();
     station.value = {
       name: null,
@@ -87,6 +89,10 @@ watch(dialog, (value) => {
 function open (data) {
   station.value = { ...data };
   dialog.value = true;
+
+  if (data.hasOwnProperty('id')) {
+    dialogTitle.value = 'Upravit stanoviště';
+  }
 }
 
 function submit () {
@@ -106,7 +112,7 @@ function onSubmit () {
 
       $q.notify({
         color: 'positive',
-        message: 'Stanice byla upravena.',
+        message: 'Stanoviště bylo upraveno.',
         position: 'bottom-right'
       });
 
@@ -114,7 +120,7 @@ function onSubmit () {
     }).catch(() => {
       $q.notify({
         color: 'negative',
-        message: 'Při úpravě stanice došlo k chybě.',
+        message: 'Při úpravě stanoviště došlo k chybě.',
         position: 'bottom-right'
       });
     });
@@ -125,7 +131,7 @@ function onSubmit () {
 
       $q.notify({
         color: 'positive',
-        message: 'Stanice byla vytvořena.',
+        message: 'Stanoviště bylo vytvořeno.',
         position: 'bottom-right'
       });
 
@@ -133,7 +139,7 @@ function onSubmit () {
     }).catch(() => {
       $q.notify({
         color: 'negative',
-        message: 'Při vytváření stanice došlo k chybě.',
+        message: 'Při vytváření stanoviště došlo k chybě.',
         position: 'bottom-right'
       });
     });
@@ -142,8 +148,8 @@ function onSubmit () {
 
 function remove (data) {
   $q.dialog({
-    'title': 'Smazat zvuk',
-    'message': `Opravdu chcete smazat stanici ${data.name}?`,
+    'title': 'Smazat stanoviště',
+    'message': `Opravdu chcete smazat stanoviště ${data.name}?`,
     cancel: true
   }).onOk(() => {
     deleteStation(data.id).then(() => {
@@ -151,13 +157,13 @@ function remove (data) {
 
       $q.notify({
         color: 'positive',
-        message: 'Stanice byla smazána.',
+        message: 'Stanoviště bylo smazáno.',
         position: 'bottom-right'
       });
     }).catch(() => {
       $q.notify({
         color: 'negative',
-        message: 'Při mazání stanice došlo k chybě.',
+        message: 'Při mazání stanoviště došlo k chybě.',
         position: 'bottom-right'
       });
     });
@@ -168,22 +174,22 @@ function remove (data) {
 <template>
   <div class="row">
     <div class="col">
-      <h1 class="text-h4">Stanice</h1>
+      <h1 class="text-h4">Stanoviště</h1>
     </div>
   </div>
 
   <div class="row">
     <div class="col">
       <q-table
-        flat
-        bordered
         :columns="columns"
-        :rows="rows"
         :pagination="{ rowsPerPage: 20 }"
+        :rows="rows"
+        bordered
+        flat
       >
         <template v-slot:top>
           <q-space />
-          <q-btn color="primary" icon-right="add" label="Přidat stanici" @click="open" />
+          <q-btn color="primary" icon-right="add" label="Přidat stanoviště" @click="open" />
         </template>
         <template v-slot:body-cell-location="props">
           <q-td :props="props">
@@ -192,8 +198,8 @@ function remove (data) {
         </template>
         <template v-slot:body-cell-actions="props">
           <q-td :props="props">
-            <q-btn flat round color="primary" icon="edit" @click="open(props.row)" />
-            <q-btn flat round color="negative" icon="delete" @click="remove(props.row)" />
+            <q-btn color="primary" flat icon="edit" round @click="open(props.row)" />
+            <q-btn color="negative" flat icon="delete" round @click="remove(props.row)" />
           </q-td>
         </template>
       </q-table>
@@ -203,36 +209,36 @@ function remove (data) {
   <q-dialog v-model="dialog">
     <q-card style="min-width: 500px;">
       <q-card-section class="row items-center q-pb-none">
-        <div class="text-h6">Vytvořit novou stanici</div>
+        <div class="text-h6">{{ dialogTitle }}</div>
         <q-space />
-        <q-btn icon="close" flat round dense v-close-popup />
+        <q-btn v-close-popup dense flat icon="close" round />
       </q-card-section>
 
       <q-card-section>
         <q-form ref="form" class="q-gutter-md" @submit="onSubmit">
           <q-input
             v-model="station.name"
+            :rules="[rules.required]"
             filled
             label="Název"
             lazy-rules
-            :rules="[rules.required]"
           />
           <q-select
             v-model="station.location"
+            :display-value="options.find(option => option.value === station.location)?.label"
             :options="options"
+            :rules="[rules.required]"
+            emit-value
             filled
             label="Umístění"
             lazy-rules
-            :rules="[rules.required]"
-            emit-value
-            :display-value="options.find(option => option.value === station.location)?.label"
           />
         </q-form>
       </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn flat label="Zrušit" v-close-popup />
-        <q-btn flat color="primary" label="Uložit" @click="submit" />
+        <q-btn v-close-popup flat label="Zrušit" />
+        <q-btn color="primary" flat label="Uložit" @click="submit" />
       </q-card-actions>
     </q-card>
   </q-dialog>
