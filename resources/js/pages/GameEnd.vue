@@ -1,5 +1,36 @@
 <script setup>
+import { useQuasar } from 'quasar';
+import { ref } from 'vue';
+import { deleteGame } from '../api.js';
 import { rules } from '../rules.js';
+
+const $q = useQuasar();
+
+const chip = ref(null);
+const form = ref();
+
+function onSubmit() {
+  if (!form.value.validate()) {
+    return;
+  }
+
+  deleteGame(chip.value).then(() => {
+    form.value.resetValidation();
+    chip.value = null;
+
+    $q.notify({
+      color: 'positive',
+      message: 'Hra byla ukončena.',
+      position: 'bottom-right'
+    });
+  }).catch(() => {
+    $q.notify({
+      color: 'negative',
+      message: 'Hru se nepodařilo ukončit.',
+      position: 'bottom-right'
+    });
+  });
+}
 </script>
 
 <template>
@@ -13,8 +44,9 @@ import { rules } from '../rules.js';
 
       <div class="row">
         <div class="col">
-          <q-form ref="form" class="q-gutter-md">
+          <q-form ref="form" class="q-gutter-md" @submit="onSubmit">
             <q-input
+              v-model="chip"
               :rules="[rules.required]"
               filled
               label="Čip"
@@ -24,7 +56,7 @@ import { rules } from '../rules.js';
             <div>
               <q-btn
                 color="primary"
-                label="Nastavit"
+                label="Uložit"
                 type="submit"
                 unelevated
               />
