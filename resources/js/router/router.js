@@ -5,6 +5,15 @@ export const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
+      path: '/',
+      redirect: '/game/players'
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../pages/Login.vue')
+    },
+    {
       path: '/game/start',
       name: 'game_start',
       component: () => import('../pages/GameStart.vue')
@@ -41,3 +50,17 @@ export const router = createRouter({
     }
   ]
 });
+
+function authGuard(to, from, next) {
+  if (localStorage.getItem('token')) {
+    next();
+  } else {
+    if (to.name === 'login') {
+      next();
+    } else {
+      next('/login');
+    }
+  }
+}
+
+router.beforeEach(authGuard);

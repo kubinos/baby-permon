@@ -1,10 +1,18 @@
 <script setup>
 import { useQuasar } from 'quasar';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 const $q = useQuasar();
 
 const drawer = ref(true);
+const auth = ref(false);
+const route = useRoute();
+const router = useRouter();
+
+watch(route, () => {
+  auth.value = localStorage.getItem('token') === 'true';
+});
 
 const menu = ref([
   {
@@ -51,10 +59,23 @@ const gameMenu = computed(() => {
 const adminMenu = computed(() => {
   return menu.value.filter(item => item.route.startsWith('admin'));
 });
+
+function logout () {
+  localStorage.removeItem('token');
+
+  $q.notify({
+    message: 'Byli jste odhlášeni',
+    color: 'positive',
+    icon: 'logout',
+    position: 'bottom-right'
+  });
+
+  router.push({ name: 'login' });
+}
 </script>
 
 <template>
-  <q-layout view="hHh Lpr lFf">
+  <q-layout v-if="auth" view="hHh Lpr lFf">
     <q-header>
       <q-toolbar>
         <q-btn aria-label="Menu" dense flat icon="menu" round @click="drawer = !drawer" />
@@ -68,7 +89,7 @@ const adminMenu = computed(() => {
         <q-btn v-if="$q.dark.isActive" dense flat icon="light_mode" round @click="$q.dark.set(false)" />
         <q-btn v-else dense flat icon="dark_mode" round @click="$q.dark.set(true)" />
         <q-separator class="q-mx-sm" color="white" inset vertical />
-        <q-btn flat icon-right="logout" label="Odhlášení" text-color="white" />
+        <q-btn flat icon-right="logout" label="Odhlášení" text-color="white" @click="logout" />
       </q-toolbar>
     </q-header>
 
@@ -126,4 +147,5 @@ const adminMenu = computed(() => {
       </q-page>
     </q-page-container>
   </q-layout>
+  <router-view v-else />
 </template>
