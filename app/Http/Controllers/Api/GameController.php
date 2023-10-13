@@ -25,7 +25,7 @@ class GameController extends Controller
         $data = $request->validate([
             'chip' => ['required', 'string'],
             'salutation' => ['required', 'string'],
-            'level' => ['required', 'string', new Enum(Level::class)],
+            'level' => ['required', new Enum(Level::class)],
             'emotion' => ['required', 'string', new Enum(Emotion::class)],
             'language' => ['required', 'string', new Enum(Language::class)],
         ]);

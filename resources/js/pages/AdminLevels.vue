@@ -80,7 +80,7 @@ function onSubmit () {
             <div>
               <q-btn
                 color="primary"
-                label="Nastavit"
+                label="Uložit"
                 type="submit"
                 unelevated
               />

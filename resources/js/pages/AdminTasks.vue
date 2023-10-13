@@ -48,7 +48,12 @@ const form = ref(null);
 const dialog = ref(false);
 const dialogTitle = ref('Vytvořit nový úkol');
 const rows = ref();
-const enums = ref();
+const enums = ref({
+  numbers: [],
+  colors: [],
+  shapes: [],
+  difficulties: []
+});
 const sounds = ref();
 const stations = ref();
 
