@@ -77,10 +77,6 @@ function open (data) {
   }
 }
 
-function submit () {
-  form.value.submit();
-}
-
 function onSubmit () {
   if (!form.value.validate()) {
     return;
@@ -185,35 +181,37 @@ function remove (data) {
 
   <q-dialog v-model="dialog">
     <q-card style="min-width: 500px;">
-      <q-card-section class="row items-center q-pb-none">
-        <div class="text-h6">{{ dialogTitle }}</div>
-        <q-space />
-        <q-btn v-close-popup dense flat icon="close" round />
-      </q-card-section>
+      <q-form ref="form" @submit="onSubmit">
+        <q-card-section class="row items-center q-pb-none">
+          <div class="text-h6">{{ dialogTitle }}</div>
+          <q-space />
+          <q-btn v-close-popup dense flat icon="close" round />
+        </q-card-section>
 
-      <q-card-section>
-        <q-form ref="form" class="q-gutter-md" @submit="onSubmit">
-          <q-input
-            v-model="sound.name"
-            :rules="[rules.required]"
-            filled
-            label="Název"
-            lazy-rules
-          />
-          <q-input
-            v-model="sound.number"
-            :rules="[rules.required]"
-            filled
-            label="Číslo"
-            lazy-rules
-          />
-        </q-form>
-      </q-card-section>
+        <q-card-section>
+          <div class="q-gutter-md">
+            <q-input
+              v-model="sound.name"
+              :rules="[rules.required]"
+              filled
+              label="Název"
+              lazy-rules
+            />
+            <q-input
+              v-model="sound.number"
+              :rules="[rules.required]"
+              filled
+              label="Číslo"
+              lazy-rules
+            />
+          </div>
+        </q-card-section>
 
-      <q-card-actions align="right">
-        <q-btn v-close-popup flat label="Zrušit" />
-        <q-btn color="primary" flat label="Uložit" @click="submit" />
-      </q-card-actions>
+        <q-card-actions align="right">
+          <q-btn v-close-popup form="form" flat label="Zrušit" />
+          <q-btn color="primary" flat label="Uložit" type="submit" />
+        </q-card-actions>
+      </q-form>
     </q-card>
   </q-dialog>
 </template>

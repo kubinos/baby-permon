@@ -132,10 +132,6 @@ function open (data) {
   }
 }
 
-function submit () {
-  form.value.submit();
-}
-
 function onSubmit () {
   if (!form.value.validate()) {
     return;
@@ -240,14 +236,14 @@ function remove (data) {
 
   <q-dialog v-model="dialog">
     <q-card style="min-width: 70vw;">
-      <q-card-section class="row items-center q-pb-none">
-        <div class="text-h6">{{ dialogTitle }}</div>
-        <q-space />
-        <q-btn v-close-popup dense flat icon="close" round />
-      </q-card-section>
+      <q-form ref="form" @submit="onSubmit">
+        <q-card-section class="row items-center q-pb-none">
+          <div class="text-h6">{{ dialogTitle }}</div>
+          <q-space />
+          <q-btn v-close-popup dense flat icon="close" round />
+        </q-card-section>
 
-      <q-card-section>
-        <q-form ref="form" @submit="onSubmit">
+        <q-card-section>
           <div class="row q-gutter-md">
             <div class="col">
               <q-input
@@ -422,13 +418,13 @@ function remove (data) {
               />
             </div>
           </div>
-        </q-form>
-      </q-card-section>
+        </q-card-section>
 
-      <q-card-actions align="right">
-        <q-btn v-close-popup flat label="Zrušit" />
-        <q-btn color="primary" flat label="Uložit" @click="submit" />
-      </q-card-actions>
+        <q-card-actions align="right">
+          <q-btn v-close-popup flat label="Zrušit" />
+          <q-btn color="primary" flat label="Uložit" type="submit" />
+        </q-card-actions>
+      </q-form>
     </q-card>
   </q-dialog>
 </template>
