@@ -22,7 +22,7 @@ const languages = [
 const form = ref();
 const enums = ref({
   levels: [],
-  emotions: [],
+  emotions: []
 });
 
 onMounted(() => {
@@ -41,7 +41,7 @@ const model = ref({
 
 const $q = useQuasar();
 
-function onSubmit() {
+function onSubmit () {
   if (!form.value.validate()) {
     return;
   }
