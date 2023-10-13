@@ -9,7 +9,7 @@ const $q = useQuasar();
 const chip = ref(null);
 const form = ref();
 
-function onSubmit() {
+function onSubmit () {
   if (!form.value.validate()) {
     return;
   }

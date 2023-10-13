@@ -208,7 +208,7 @@ function remove (data) {
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn v-close-popup form="form" flat label="Zrušit" />
+          <q-btn v-close-popup flat form="form" label="Zrušit" />
           <q-btn color="primary" flat label="Uložit" type="submit" />
         </q-card-actions>
       </q-form>
