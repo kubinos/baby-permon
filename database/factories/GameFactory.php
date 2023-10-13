@@ -28,6 +28,7 @@ class GameFactory extends Factory
             'level' => $this->faker->randomElement(Level::cases()),
             'emotion' => $this->faker->randomElement(Emotion::cases()),
             'language' => $this->faker->randomElement(Language::cases()),
+            'created_at' => $this->faker->dateTimeBetween('-2 hours', 'now')->format('Y-m-d H:i:s'),
         ];
     }
 }

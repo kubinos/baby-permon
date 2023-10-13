@@ -27,6 +27,7 @@ class Game extends Model
         'level',
         'emotion',
         'language',
+        'created_at',
     ];
 
     protected $appends = [
