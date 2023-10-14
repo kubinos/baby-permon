@@ -41,6 +41,13 @@ const columns = [
     sortable: true
   },
   {
+    name: 'points',
+    label: 'Body',
+    field: 'points',
+    align: 'left',
+    sortable: true
+  },
+  {
     name: 'expiration',
     label: 'Konec hry',
     field: (row) => dayjs().locale('cs').to(row.expiration),

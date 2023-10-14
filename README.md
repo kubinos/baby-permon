@@ -187,6 +187,7 @@ Every response with resources is wrapped in root `data` key.
     "level": 1,
     "emotion": "happy",
     "language": "cs",
+    "points": 10,
     "expiration": "2023-09-25T23:21:40+02:00"
 }
 ```

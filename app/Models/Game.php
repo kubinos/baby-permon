@@ -27,6 +27,7 @@ class Game extends Model
         'level',
         'emotion',
         'language',
+        'points',
         'created_at',
     ];
 
@@ -40,6 +41,7 @@ class Game extends Model
         'level' => Level::class,
         'emotion' => Emotion::class,
         'language' => Language::class,
+        'points' => 'integer',
         'expiration' => 'datetime',
     ];
 
