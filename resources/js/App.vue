@@ -31,6 +31,11 @@ const menu = ref([
     icon: 'group'
   },
   {
+    name: 'Úkoly',
+    route: 'admin_tasks',
+    icon: 'checklist'
+  },
+  {
     name: 'Zvuky',
     route: 'admin_sounds',
     icon: 'music_note'
@@ -39,11 +44,6 @@ const menu = ref([
     name: 'Stanoviště',
     route: 'admin_locations',
     icon: 'location_on'
-  },
-  {
-    name: 'Úkoly',
-    route: 'admin_tasks',
-    icon: 'checklist'
   },
   {
     name: 'Obtížnost',
@@ -75,12 +75,10 @@ function logout () {
 </script>
 
 <template>
-  <q-layout v-if="auth" view="hHh Lpr lFf">
+  <q-layout view="hHh Lpr lFf">
     <q-header>
       <q-toolbar>
         <q-btn aria-label="Menu" dense flat icon="menu" round @click="drawer = !drawer" />
-
-        <q-icon class="q-ml-sm" name="extension" size="26px" />
 
         <q-toolbar-title>
           {{ 'Baby Permon' }}
@@ -88,8 +86,6 @@ function logout () {
 
         <q-btn v-if="$q.dark.isActive" dense flat icon="light_mode" round @click="$q.dark.set(false)" />
         <q-btn v-else dense flat icon="dark_mode" round @click="$q.dark.set(true)" />
-        <q-separator class="q-mx-sm" color="white" inset vertical />
-        <q-btn flat icon-right="logout" label="Odhlášení" text-color="white" @click="logout" />
       </q-toolbar>
     </q-header>
 
@@ -124,18 +120,31 @@ function logout () {
           {{ 'Administrace' }}
         </q-item-label>
 
-        <q-item
-          v-for="{ name, route, icon } in adminMenu"
-          :key="route"
-          v-ripple
-          :to="{ name: route }"
-          clickable
-        >
-          <q-item-section avatar>
-            <q-icon :name="icon" />
-          </q-item-section>
+        <template v-if="auth">
+          <q-item
+            v-for="{ name, route, icon } in adminMenu"
+            :key="route"
+            v-ripple
+            :to="{ name: route }"
+            clickable
+          >
+            <q-item-section avatar>
+              <q-icon :name="icon" />
+            </q-item-section>
+            <q-item-section>
+              {{ name }}
+            </q-item-section>
+          </q-item>
+
+          <q-item>
+            <q-item-section>
+              <q-btn unelevated icon-right="logout" label="Odhlášení" color="primary" @click="logout" />
+            </q-item-section>
+          </q-item>
+        </template>
+        <q-item v-else>
           <q-item-section>
-            {{ name }}
+            <q-btn :to="{ name: 'login' }" unelevated color="primary" label="Přihlásit"></q-btn>
           </q-item-section>
         </q-item>
       </q-list>
@@ -147,5 +156,4 @@ function logout () {
       </q-page>
     </q-page-container>
   </q-layout>
-  <router-view v-else />
 </template>

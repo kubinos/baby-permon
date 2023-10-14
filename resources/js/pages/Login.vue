@@ -16,32 +16,44 @@ function onSubmit () {
 
   if (password.value === 'JeEvp9AM0h0kTIkQ') {
     localStorage.setItem('token', 'true');
-    router.push({ name: 'game_start' });
+    router.push({ name: 'admin_tasks' });
   }
 }
 </script>
 
 <template>
-  <q-layout>
-    <q-page-container>
-      <q-page class="flex justify-center items-center">
-        <div class="row" style="min-width: 500px;">
-          <div class="col">
-            <q-form ref="form" @submit="onSubmit">
-              <q-card class="q-pa-lg shadow-1">
-                <q-card-section>
-                  <q-form class="q-gutter-md">
-                    <q-input autofocus square filled clearable type="password" label="Heslo" v-model="password" :rules="[rules.required]" />
-                  </q-form>
-                </q-card-section>
-                <q-card-actions class="q-px-md">
-                  <q-btn type="submit" unelevated color="primary" size="lg" class="full-width" label="Přihlásit se" />
-                </q-card-actions>
-              </q-card>
-            </q-form>
-          </div>
+
+  <div class="row">
+    <div class="col offset-md-3 col-md-6 offset-lg-4 col-lg-4">
+      <div class="row">
+        <div class="col">
+          <h1 class="text-h4">Přihlášení do administrace</h1>
         </div>
-      </q-page>
-    </q-page-container>
-  </q-layout>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <q-form ref="form" class="q-gutter-md" @submit="onSubmit">
+            <q-input
+              type="password"
+              v-model="password"
+              :rules="[rules.required]"
+              filled
+              label="Heslo"
+              lazy-rules
+            />
+
+            <div>
+              <q-btn
+                color="primary"
+                label="Odeslat"
+                type="submit"
+                unelevated
+              />
+            </div>
+          </q-form>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

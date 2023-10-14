@@ -52,10 +52,10 @@ export const router = createRouter({
 });
 
 function authGuard(to, from, next) {
-  if (localStorage.getItem('token')) {
+  if (!to.name.startsWith('admin_')) {
     next();
   } else {
-    if (to.name === 'login') {
+    if (localStorage.getItem('token')) {
       next();
     } else {
       next('/login');
