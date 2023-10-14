@@ -13,9 +13,9 @@ enum Level: int
     public function toString(): string
     {
         return match ($this) {
-            self::One => 'Jedna',
-            self::Two => 'Dva',
-            self::Three => 'Tři',
+            self::One => 'Maláčci (3+ do 4 let)',
+            self::Two => 'Předškoláčci (4+ do 6 let)',
+            self::Three => 'Školáci (6+ let)',
         };
     }
 }

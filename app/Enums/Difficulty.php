@@ -15,11 +15,11 @@ enum Difficulty: int
     public function toString(): string
     {
         return match ($this) {
-            self::Beginner => '1 Nejjednodušší',
-            self::Easy => '2 Jednoduchý',
-            self::Medium => '3 Střední',
-            self::Hard => '4 Těžký',
-            self::Expert => '5 Nejtěžší',
+            self::Beginner => '1* Nejjednodušší',
+            self::Easy => '2* Jednoduchý',
+            self::Medium => '3* Střední',
+            self::Hard => '4* Těžký',
+            self::Expert => '5* Nejtěžší',
         };
     }
 }

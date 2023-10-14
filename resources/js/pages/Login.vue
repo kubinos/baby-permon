@@ -1,5 +1,5 @@
 <script setup>
-// JeEvp9AM0h0kTIkQ
+// bp-permon
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { rules } from '../rules.js';
@@ -14,7 +14,7 @@ function onSubmit () {
     return;
   }
 
-  if (password.value === 'JeEvp9AM0h0kTIkQ') {
+  if (password.value === 'bp-permon') {
     localStorage.setItem('token', 'true');
     router.push({ name: 'admin_tasks' });
   }
