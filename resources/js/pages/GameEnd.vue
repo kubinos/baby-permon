@@ -109,5 +109,22 @@ function onSubmit () {
         <q-btn v-close-popup class="full-width" color="primary" outline label="Zavřít" />
       </q-card-actions>
     </q-card>
+    <q-card v-else class="q-pa-md" style="min-width: 300px;">
+      <q-card-section class="row items-center q-pb-none">
+        <div class="text-h4">
+          Hra nenalezena.
+        </div>
+      </q-card-section>
+
+      <q-card-section>
+        <div class="text-h6">
+          Hra s tímto čipem nebyla nalezena. Zkontrolujte, zda jste čip zadali správně.
+        </div>
+      </q-card-section>
+
+      <q-card-actions align="center">
+        <q-btn v-close-popup class="full-width" color="primary" outline label="Zavřít" />
+      </q-card-actions>
+    </q-card>
   </q-dialog>
 </template>
