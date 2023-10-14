@@ -54,6 +54,8 @@ const enums = ref({
   shapes: [],
   difficulties: []
 });
+
+const soundsTemp = ref();
 const sounds = ref();
 const stations = ref();
 
@@ -86,6 +88,7 @@ onMounted(() => {
 
   getSounds().then(({ data }) => {
     sounds.value = data.data;
+    soundsTemp.value = data.data;
   });
 
   getStations().then(({ data }) => {
@@ -207,6 +210,17 @@ function remove (data) {
     });
   });
 }
+
+function filter (val, update, abort) {
+  update(() => {
+    const needle = val.toLowerCase();
+    soundsTemp.value = sounds.value.filter(v => v.name.toLowerCase().indexOf(needle) > -1);
+  });
+}
+
+function filterReset () {
+  soundsTemp.value = [...sounds.value];
+}
 </script>
 
 <template>
@@ -298,42 +312,51 @@ function remove (data) {
               <q-select
                 v-model="task.soundCsId"
                 :display-value="sounds.find(option => option.id === task.soundCsId)?.name"
-                :options="sounds"
+                :options="soundsTemp"
                 :rules="[rules.required]"
                 emit-value
                 filled
+                use-input
                 label="Zvuk CZ"
                 lazy-rules
                 option-label="name"
                 option-value="id"
+                @filter="filter"
+                @focusout="filterReset"
               />
             </div>
             <div class="col">
               <q-select
                 v-model="task.soundEnId"
                 :display-value="sounds.find(option => option.id === task.soundEnId)?.name"
-                :options="sounds"
+                :options="soundsTemp"
                 :rules="[rules.required]"
                 emit-value
                 filled
+                use-input
                 label="Zvuk EN"
                 lazy-rules
                 option-label="name"
                 option-value="id"
+                @filter="filter"
+                @focusout="filterReset"
               />
             </div>
             <div class="col">
               <q-select
                 v-model="task.soundDeId"
                 :display-value="sounds.find(option => option.id === task.soundDeId)?.name"
-                :options="sounds"
+                :options="soundsTemp"
                 :rules="[rules.required]"
                 emit-value
                 filled
+                use-input
                 label="Zvuk DE"
                 lazy-rules
                 option-label="name"
                 option-value="id"
+                @filter="filter"
+                @focusout="filterReset"
               />
             </div>
           </div>
