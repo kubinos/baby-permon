@@ -48,6 +48,10 @@ class GameController extends Controller
             $game->delete();
         }
 
-        return response()->noContent();
+        return response()->json(
+            [
+                'data' => $game,
+            ]
+        );
     }
 }
