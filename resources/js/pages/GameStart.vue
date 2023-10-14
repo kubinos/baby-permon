@@ -34,7 +34,7 @@ onMounted(() => {
 const model = ref({
   chip: null,
   salutation: null,
-  language: null,
+  language: 'cs',
   level: null,
   emotion: null
 });
@@ -51,7 +51,7 @@ function onSubmit () {
     model.value = {
       chip: null,
       salutation: null,
-      language: null,
+      language: 'cs',
       level: null,
       emotion: null
     };
