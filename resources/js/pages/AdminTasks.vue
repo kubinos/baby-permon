@@ -145,7 +145,7 @@ function onSubmit () {
     return;
   }
 
-  const isEdit = task.value.hasOwnProperty('id');
+  const isEdit = task.value.id !== undefined;
 
   if (isEdit) {
     updateTask(task.value).then(() => {
