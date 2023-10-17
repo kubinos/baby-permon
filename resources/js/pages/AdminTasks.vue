@@ -178,26 +178,27 @@ watch(dialog, (value) => {
 
 function open (data) {
   dialog.value = true;
-  task.value = {
-    id: data.id,
-    name: data.name,
-    difficulty: data.difficulty,
-    stationId: data.station?.id,
-    soundCsId: data.soundCs?.id,
-    soundEnId: data.soundEn?.id,
-    soundDeId: data.soundDe?.id,
-    correct1: data.correct1,
-    correct2: data.correct2,
-    correct3: data.correct3,
-    pointsCorrect: data.pointsCorrect,
-    partial1: data.partial1,
-    partial2: data.partial2,
-    partial3: data.partial3,
-    pointsPartial: data.pointsPartial,
-    pointsIncorrect: data.pointsIncorrect
-  };
 
   if (data.hasOwnProperty('id')) {
+    task.value = {
+      id: data.id,
+      name: data.name,
+      difficulty: data.difficulty,
+      stationId: data.station?.id,
+      soundCsId: data.soundCs?.id,
+      soundEnId: data.soundEn?.id,
+      soundDeId: data.soundDe?.id,
+      correct1: data.correct1,
+      correct2: data.correct2,
+      correct3: data.correct3,
+      pointsCorrect: data.pointsCorrect,
+      partial1: data.partial1,
+      partial2: data.partial2,
+      partial3: data.partial3,
+      pointsPartial: data.pointsPartial,
+      pointsIncorrect: data.pointsIncorrect
+    };
+
     dialogTitle.value = 'Upravit úkol';
   }
 }
