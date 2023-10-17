@@ -50,9 +50,11 @@ const columns = [
   {
     name: 'expiration',
     label: 'Konec hry',
-    field: (row) => dayjs().locale('cs').to(row.expiration),
+    field: 'expiration',
+    format: (_, row) => dayjs().locale('cs').to(row.expiration),
     align: 'right',
-    sortable: true
+    sortable: true,
+    sort: (a, b) => dayjs(a).unix() - dayjs(b).unix()
   }
 ];
 
