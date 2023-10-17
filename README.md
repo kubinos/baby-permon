@@ -143,12 +143,10 @@ Every response with resources is wrapped in root `data` key.
         "name": "Purple",
         "number": "64.wav"
     },
-    "responseNumber": "2",
-    "responseColor": "red",
-    "responseShape": "rectangle",
-    "pointsCorrect": 9,
-    "pointsPartial": 6,
-    "pointsIncorrect": 1
+    "responseCorrect": ["1", "2", "0", "0"],
+    "pointsCorrect": 20,
+    "responsePartial": ["1", "2", "0", "0"],
+    "pointsPartial": 10
 }
 ```
 
@@ -162,12 +160,10 @@ Every response with resources is wrapped in root `data` key.
     "soundCsId": 12,
     "soundEnId": 23,
     "soundDeId": 34,
-    "responseNumber": "2",
-    "responseColor": "red",
-    "responseShape": "rectangle",
-    "pointsCorrect": 9,
-    "pointsPartial": 6,
-    "pointsIncorrect": 1
+    "responseCorrect": ["1", "2", "0", "0"],
+    "pointsCorrect": 20,
+    "responsePartial": ["1", "2", "0", "0"],
+    "pointsPartial": 10
 }
 ```
 

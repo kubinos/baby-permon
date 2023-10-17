@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,12 +23,14 @@ class TaskResource extends JsonResource
             'soundCs' => $this->soundCs,
             'soundEn' => $this->soundEn,
             'soundDe' => $this->soundDe,
-            'responseNumber' => $this->response_number,
-            'responseColor' => $this->response_color,
-            'responseShape' => $this->response_shape,
+            'correct1' => Task::parseResponse($this->response_correct)[0],
+            'correct2' => Task::parseResponse($this->response_correct)[1],
+            'correct3' => Task::parseResponse($this->response_correct)[2],
             'pointsCorrect' => $this->points_correct,
+            'partial1' => Task::parseResponse($this->response_partial)[0],
+            'partial2' => Task::parseResponse($this->response_partial)[1],
+            'partial3' => Task::parseResponse($this->response_partial)[2],
             'pointsPartial' => $this->points_partial,
-            'pointsIncorrect' => $this->points_incorrect,
         ];
     }
 }

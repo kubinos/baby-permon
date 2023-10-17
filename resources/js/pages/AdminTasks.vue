@@ -44,14 +44,66 @@ const columns = [
   }
 ];
 
+const answers = [
+  {
+    label: 'Nic',
+    value: '0'
+  },
+  {
+    label: 'Modrá',
+    value: 'b'
+  },
+  {
+    label: 'Zelená',
+    value: 'g'
+  },
+  {
+    label: 'Červená',
+    value: 'r'
+  },
+  {
+    label: 'Žlutá',
+    value: 'y'
+  },
+  {
+    label: 'Obdelník',
+    value: 'o'
+  },
+  {
+    label: 'Hvězda',
+    value: 't'
+  },
+  {
+    label: 'Kruh',
+    value: 'c'
+  },
+  {
+    label: 'Čtverec',
+    value: 's'
+  },
+  {
+    label: 'Číslo 1',
+    value: '1'
+  },
+  {
+    label: 'Číslo 2',
+    value: '2'
+  },
+  {
+    label: 'Číslo 3',
+    value: '3'
+  },
+  {
+    label: 'Číslo 4',
+    value: '4'
+  }
+];
+
 const form = ref(null);
 const dialog = ref(false);
 const dialogTitle = ref('Vytvořit nový úkol');
 const rows = ref();
 const enums = ref({
-  numbers: [],
-  colors: [],
-  shapes: [],
   difficulties: []
 });
 
@@ -66,11 +118,14 @@ const task = ref({
   soundCsId: null,
   soundEnId: null,
   soundDeId: null,
-  responseNumber: null,
-  responseColor: null,
-  responseShape: null,
-  pointsPartial: null,
-  pointsIncorrect: null
+  correct1: '0',
+  correct2: '0',
+  correct3: '0',
+  pointsCorrect: null,
+  partial1: '0',
+  partial2: '0',
+  partial3: '0',
+  pointsPartial: null
 });
 
 const fetchTasks = () => {
@@ -107,12 +162,14 @@ watch(dialog, (value) => {
       soundCsId: null,
       soundEnId: null,
       soundDeId: null,
-      responseNumber: null,
-      responseColor: null,
-      responseShape: null,
+      correct1: '0',
+      correct2: '0',
+      correct3: '0',
       pointsCorrect: null,
-      pointsPartial: null,
-      pointsIncorrect: null
+      partial1: '0',
+      partial2: '0',
+      partial3: '0',
+      pointsPartial: null
     };
   }
 });
@@ -127,12 +184,14 @@ function open (data) {
     soundCsId: data.soundCs?.id,
     soundEnId: data.soundEn?.id,
     soundDeId: data.soundDe?.id,
-    responseNumber: data.responseNumber,
-    responseColor: data.responseColor,
-    responseShape: data.responseShape,
+    correct1: data.correct1,
+    correct2: data.correct2,
+    correct3: data.correct3,
     pointsCorrect: data.pointsCorrect,
-    pointsPartial: data.pointsPartial,
-    pointsIncorrect: data.pointsIncorrect
+    partial1: data.partial1,
+    partial2: data.partial2,
+    partial3: data.partial3,
+    pointsPartial: data.pointsPartial
   };
 
   if (data.hasOwnProperty('id')) {
@@ -362,77 +421,44 @@ function filterReset () {
           </div>
           <div class="row">
             <div class="col">
-              <h5 class="text-subtitle2 q-my-sm">Odpovědi</h5>
+              <h5 class="text-subtitle2 q-my-sm">Správná odpověď</h5>
             </div>
           </div>
           <div class="row q-gutter-md">
             <div class="col">
               <q-select
-                v-model="task.responseNumber"
-                :display-value="enums.numbers.find(option => option.key === task.responseNumber)?.value"
-                :options="enums.numbers"
+                v-model="task.correct1"
+                :display-value="answers.find(option => option.value === task.correct1)?.label"
+                :options="answers"
                 :rules="[rules.required]"
                 emit-value
                 filled
-                label="Číslo"
+                label="Pole 1"
                 lazy-rules
-                option-label="value"
-                option-value="key"
               />
             </div>
             <div class="col">
               <q-select
-                v-model="task.responseColor"
-                :display-value="enums.colors.find(option => option.key === task.responseColor)?.value"
-                :options="enums.colors"
+                v-model="task.correct2"
+                :display-value="answers.find(option => option.value === task.correct2)?.label"
+                :options="answers"
                 :rules="[rules.required]"
                 emit-value
                 filled
-                label="Barva"
+                label="Pole 2"
                 lazy-rules
-                option-label="value"
-                option-value="key"
               />
             </div>
             <div class="col">
               <q-select
-                v-model="task.responseShape"
-                :display-value="enums.shapes.find(option => option.key === task.responseShape)?.value"
-                :options="enums.shapes"
+                v-model="task.correct3"
+                :display-value="answers.find(option => option.value === task.correct3)?.label"
+                :options="answers"
                 :rules="[rules.required]"
                 emit-value
                 filled
-                label="Tvar"
+                label="Pole 3"
                 lazy-rules
-                option-label="value"
-                option-value="key"
-              />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <h5 class="text-subtitle2 q-my-sm">Body</h5>
-            </div>
-          </div>
-          <div class="row q-gutter-md">
-            <div class="col">
-              <q-input
-                v-model="task.pointsIncorrect"
-                :rules="[rules.required]"
-                filled
-                label="Špatně"
-                lazy-rules
-                type="number"
-              />
-            </div>
-            <div class="col">
-              <q-input
-                v-model="task.pointsPartial"
-                :rules="[rules.required]"
-                filled
-                label="Část"
-                lazy-rules
-                type="number"
               />
             </div>
             <div class="col">
@@ -440,7 +466,60 @@ function filterReset () {
                 v-model="task.pointsCorrect"
                 :rules="[rules.required]"
                 filled
-                label="Správně"
+                label="Počet bodů"
+                lazy-rules
+                type="number"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <h5 class="text-subtitle2 q-my-sm">Částečná odpověď</h5>
+            </div>
+          </div>
+          <div class="row q-gutter-md">
+            <div class="col">
+              <q-select
+                v-model="task.partial1"
+                :display-value="answers.find(option => option.value === task.partial1)?.label"
+                :options="answers"
+                :rules="[rules.required]"
+                emit-value
+                filled
+                label="Pole 1"
+                lazy-rules
+              />
+            </div>
+            <div class="col">
+              <q-select
+                v-model="task.partial2"
+                :display-value="answers.find(option => option.value === task.partial2)?.label"
+                :options="answers"
+                :rules="[rules.required]"
+                emit-value
+                filled
+                label="Pole 2"
+                lazy-rules
+              />
+            </div>
+            <div class="col">
+              <q-select
+                v-model="task.partial3"
+                :display-value="answers.find(option => option.value === task.partial3)?.label"
+                :options="answers"
+                :rules="[rules.required]"
+                emit-value
+                filled
+                label="Pole 3"
+                lazy-rules
+              />
+            </div>
+            <div class="col">
+              <q-input
+                v-model="task.pointsPartial"
+                :rules="[rules.required]"
+                filled
+                label="Počet bodů"
                 lazy-rules
                 type="number"
               />

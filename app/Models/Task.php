@@ -2,10 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\Color;
 use App\Enums\Difficulty;
-use App\Enums\Number;
-use App\Enums\Shape;
 use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,12 +22,10 @@ class Task extends Model
         'sound_cs_id',
         'sound_en_id',
         'sound_de_id',
-        'response_number',
-        'response_color',
-        'response_shape',
+        'response_correct',
         'points_correct',
+        'response_partial',
         'points_partial',
-        'points_incorrect',
     ];
 
     protected $casts = [
@@ -39,12 +34,17 @@ class Task extends Model
         'sound_cs_id' => 'integer',
         'sound_en_id' => 'integer',
         'sound_de_id' => 'integer',
-        'response_number' => Number::class,
-        'response_color' => Color::class,
-        'response_shape' => Shape::class,
+        'response_correct' => 'array',
         'points_correct' => 'integer',
+        'response_partial' => 'array',
         'points_partial' => 'integer',
-        'points_incorrect' => 'integer',
+    ];
+
+    protected $hidden = [
+        'response_correct',
+        'response_partial',
+        'created_at',
+        'updated_at',
     ];
 
     public function station(): BelongsTo
@@ -65,5 +65,29 @@ class Task extends Model
     public function soundDe(): BelongsTo
     {
         return $this->belongsTo(Sound::class, 'sound_de_id', 'id');
+    }
+
+    /**
+     * @param array<string> $response
+     * @return array<string>
+     */
+    public static function parseResponse(array $response): array
+    {
+        $new = ['0', '0', '0'];
+
+        for ($i = 0; $i < 3; $i++) {
+
+            foreach ($response as $item) {
+                $chars = str_split($item);
+
+                if (($i + 1) === intval($chars[0])) {
+                    if (count($chars) === 2) {
+                        $new[$i] = $chars[1];
+                    }
+                }
+            }
+        }
+
+        return $new;
     }
 }

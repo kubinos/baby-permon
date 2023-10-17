@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\Color;
 use App\Enums\Difficulty;
-use App\Enums\Number;
-use App\Enums\Shape;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
@@ -41,12 +38,14 @@ class TaskController extends Controller
             'soundCsId' => ['required', 'integer', 'exists:sound,id'],
             'soundEnId' => ['required', 'integer', 'exists:sound,id'],
             'soundDeId' => ['required', 'integer', 'exists:sound,id'],
-            'responseNumber' => ['required', 'string', new Enum(Number::class)],
-            'responseColor' => ['required', 'string', new Enum(Color::class)],
-            'responseShape' => ['required', 'string', new Enum(Shape::class)],
+            'correct1' => ['required', 'string'],
+            'correct2' => ['required', 'string'],
+            'correct3' => ['required', 'string'],
             'pointsCorrect' => ['required', 'integer'],
+            'partial1' => ['required', 'string'],
+            'partial2' => ['required', 'string'],
+            'partial3' => ['required', 'string'],
             'pointsPartial' => ['required', 'integer'],
-            'pointsIncorrect' => ['required', 'integer'],
         ]);
 
         $task = Task::query()
@@ -57,12 +56,20 @@ class TaskController extends Controller
                 'sound_cs_id' => $data['soundCsId'],
                 'sound_en_id' => $data['soundEnId'],
                 'sound_de_id' => $data['soundDeId'],
-                'response_number' => $data['responseNumber'],
-                'response_color' => $data['responseColor'],
-                'response_shape' => $data['responseShape'],
+                'response_correct' => [
+                    '1' . $data['correct1'],
+                    '2' . $data['correct2'],
+                    '3' . $data['correct3'],
+                    '0',
+                ],
                 'points_correct' => $data['pointsCorrect'],
+                'response_partial' => [
+                    '1' . $data['partial1'],
+                    '2' . $data['partial2'],
+                    '3' . $data['partial3'],
+                    '0',
+                ],
                 'points_partial' => $data['pointsPartial'],
-                'points_incorrect' => $data['pointsIncorrect'],
             ]);
 
         return response()->json(
@@ -82,12 +89,14 @@ class TaskController extends Controller
             'soundCsId' => ['required', 'integer', 'exists:sound,id'],
             'soundEnId' => ['required', 'integer', 'exists:sound,id'],
             'soundDeId' => ['required', 'integer', 'exists:sound,id'],
-            'responseNumber' => ['required', 'string', new Enum(Number::class)],
-            'responseColor' => ['required', 'string', new Enum(Color::class)],
-            'responseShape' => ['required', 'string', new Enum(Shape::class)],
+            'correct1' => ['required', 'string'],
+            'correct2' => ['required', 'string'],
+            'correct3' => ['required', 'string'],
             'pointsCorrect' => ['required', 'integer'],
+            'partial1' => ['required', 'string'],
+            'partial2' => ['required', 'string'],
+            'partial3' => ['required', 'string'],
             'pointsPartial' => ['required', 'integer'],
-            'pointsIncorrect' => ['required', 'integer'],
         ]);
 
         $task = Task::query()
@@ -100,12 +109,20 @@ class TaskController extends Controller
             'sound_cs_id' => $data['soundCsId'],
             'sound_en_id' => $data['soundEnId'],
             'sound_de_id' => $data['soundDeId'],
-            'response_number' => $data['responseNumber'],
-            'response_color' => $data['responseColor'],
-            'response_shape' => $data['responseShape'],
+            'response_correct' => [
+                '1' . $data['correct1'],
+                '2' . $data['correct2'],
+                '3' . $data['correct3'],
+                '0',
+            ],
             'points_correct' => $data['pointsCorrect'],
+            'response_partial' => [
+                '1' . $data['partial1'],
+                '2' . $data['partial2'],
+                '3' . $data['partial3'],
+                '0',
+            ],
             'points_partial' => $data['pointsPartial'],
-            'points_incorrect' => $data['pointsIncorrect'],
         ]);
 
         return response()->noContent();
