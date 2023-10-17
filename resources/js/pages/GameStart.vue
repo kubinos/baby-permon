@@ -21,6 +21,7 @@ const languages = [
 
 const form = ref();
 const enums = ref({
+  game_types: [],
   levels: [],
   emotions: []
 });
@@ -33,6 +34,7 @@ onMounted(() => {
 
 const model = ref({
   chip: null,
+  type: 'player',
   salutation: null,
   language: 'cs',
   level: null,
@@ -99,6 +101,18 @@ function onSubmit () {
               lazy-rules
             />
             <q-select
+              v-model="model.type"
+              :display-value="enums.game_types.find(option => option.key === model.type)?.value"
+              :options="enums.game_types"
+              :rules="[rules.required]"
+              emit-value
+              filled
+              label="Typ"
+              lazy-rules
+              option-label="value"
+              option-value="key"
+            />
+            <q-select
               v-model="model.language"
               :display-value="languages.find(option => option.value === model.language)?.label"
               :options="languages"
@@ -107,6 +121,7 @@ function onSubmit () {
               filled
               label="Jazyk"
               lazy-rules
+              :disable="model.type !== 'player'"
             />
             <q-select
               v-model="model.level"
@@ -119,6 +134,7 @@ function onSubmit () {
               lazy-rules
               option-label="value"
               option-value="key"
+              :disable="model.type !== 'player'"
             />
             <q-select
               v-model="model.emotion"
@@ -131,6 +147,7 @@ function onSubmit () {
               lazy-rules
               option-label="value"
               option-value="key"
+              :disable="model.type !== 'player'"
             />
 
             <div>

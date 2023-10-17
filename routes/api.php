@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ConfigLevelController;
 use App\Http\Controllers\Api\GameController;
+use App\Http\Controllers\Api\PLCController;
 use App\Http\Controllers\Api\SoundController;
 use App\Http\Controllers\Api\StationController;
 use App\Http\Controllers\Api\TaskController;
@@ -18,6 +19,19 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+// plc
+
+Route::get('/tryOpenDoor', [PLCController::class, 'tryOpenDoor'])
+    ->name('plc.tryOpenDoor');
+
+Route::get('/panelInfo', [PLCController::class, 'tryOpenDoor'])
+    ->name('plc.panelInfo');
+
+Route::put('/points', [PLCController::class, 'tryOpenDoor'])
+    ->name('plc.points');
+
+// app
 
 Route::group(['prefix' => '/config/level'], function () {
     Route::get('', [ConfigLevelController::class, 'index'])

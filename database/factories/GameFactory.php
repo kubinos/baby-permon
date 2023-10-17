@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\Emotion;
+use App\Enums\GameType;
 use App\Enums\Language;
 use App\Enums\Level;
 use App\Models\Game;
@@ -24,6 +25,7 @@ class GameFactory extends Factory
     {
         return [
             'chip' => $this->faker->unique()->uuid,
+            'type' => $this->faker->randomElement(GameType::cases()),
             'salutation' => $this->faker->randomElement(['Mr', 'Mrs']),
             'level' => $this->faker->randomElement(Level::cases()),
             'emotion' => $this->faker->randomElement(Emotion::cases()),

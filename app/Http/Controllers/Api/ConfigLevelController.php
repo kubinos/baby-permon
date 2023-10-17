@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Enums\Color;
 use App\Enums\Difficulty;
 use App\Enums\Emotion;
+use App\Enums\GameType;
 use App\Enums\Level;
 use App\Enums\Number;
 use App\Enums\Shape;
@@ -32,6 +33,7 @@ class ConfigLevelController extends Controller
     public function enums(): Response
     {
         return response()->json([
+            'game_types' => array_map(fn (GameType $enum) => ['key' => $enum->value, 'value' => $enum->toString()], GameType::cases()),
             'colors' => array_map(fn (Color $enum) => ['key' => $enum->value, 'value' => $enum->toString()], Color::cases()),
             'emotions' => array_map(fn (Emotion $enum) => ['key' => $enum->value, 'value' => $enum->toString()], Emotion::cases()),
             'shapes' => array_map(fn (Shape $enum) => ['key' => $enum->value, 'value' => $enum->toString()], Shape::cases()),

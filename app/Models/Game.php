@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Emotion;
+use App\Enums\GameType;
 use App\Enums\Language;
 use App\Enums\Level;
 use DateTimeInterface;
@@ -21,8 +22,13 @@ class Game extends Model
 
     protected $table = 'game';
 
+    protected $attributes = [
+        'points' => 0,
+    ];
+
     protected $fillable = [
         'chip',
+        'type',
         'salutation',
         'level',
         'emotion',
@@ -37,6 +43,7 @@ class Game extends Model
 
     protected $casts = [
         'chip' => 'string',
+        'type' => GameType::class,
         'salutation' => 'string',
         'level' => Level::class,
         'emotion' => Emotion::class,
