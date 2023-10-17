@@ -17,7 +17,7 @@ class GameController extends Controller
     public function index(): Response
     {
         return response()->json([
-            'data' => Game::active()->get(),
+            'data' => Game::all(),
         ]);
     }
 

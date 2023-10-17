@@ -34,6 +34,7 @@ class Game extends Model
         'emotion',
         'language',
         'points',
+        'ended_at',
         'created_at',
     ];
 
@@ -49,6 +50,7 @@ class Game extends Model
         'emotion' => Emotion::class,
         'language' => Language::class,
         'points' => 'integer',
+        'ended_at' => 'datetime',
         'expiration' => 'datetime',
     ];
 
@@ -63,16 +65,6 @@ class Game extends Model
         return Attribute::make(
             get: fn () => $this->created_at->addHours(config('game.limit.hours')),
         );
-    }
-
-    public function scopeActive(Builder $query): Builder
-    {
-        $subHours = now()->subHours(config('game.limit.hours'));
-
-        return $query
-            ->where('created_at', '>=', $subHours)
-            ->whereNull('deleted_at')
-        ;
     }
 
     public function hasEnded(): bool

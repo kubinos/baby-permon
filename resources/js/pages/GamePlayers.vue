@@ -20,6 +20,13 @@ const columns = [
     sortable: false
   },
   {
+    name: 'ended',
+    label: 'Konec hry',
+    field: (row) => row.ended_at !== null ? 'ano' : 'ne',
+    align: 'left',
+    sortable: true
+  },
+  {
     name: 'chip',
     label: 'Čip',
     field: 'chip',

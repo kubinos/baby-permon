@@ -31,6 +31,7 @@ class GameFactory extends Factory
             'emotion' => $this->faker->randomElement(Emotion::cases()),
             'language' => $this->faker->randomElement(Language::cases()),
             'points' => $this->faker->numberBetween(0, 100),
+            'ended_at' => null,
             'created_at' => $this->faker->dateTimeBetween('-2 hours', 'now')->format('Y-m-d H:i:s'),
         ];
     }

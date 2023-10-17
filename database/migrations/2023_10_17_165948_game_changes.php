@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::table('game', function (Blueprint $table) {
             $table->string('type')->after('chip');
+            $table->timestamp('ended_at')->nullable()->after('points');
         });
     }
 
@@ -17,6 +18,7 @@ return new class extends Migration
     {
         Schema::table('game', function (Blueprint $table) {
             $table->dropColumn('type');
+            $table->dropColumn('ended_at');
         });
     }
 };
