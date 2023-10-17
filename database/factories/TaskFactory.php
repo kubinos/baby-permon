@@ -27,6 +27,7 @@ class TaskFactory extends Factory
             'points_correct' => 10,
             'response_partial' => ['11', '22', '33', '0'],
             'points_partial' => 5,
+            'points_incorrect' => 0,
         ];
     }
 }

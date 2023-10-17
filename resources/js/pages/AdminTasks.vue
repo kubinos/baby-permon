@@ -125,7 +125,8 @@ const task = ref({
   partial1: '0',
   partial2: '0',
   partial3: '0',
-  pointsPartial: null
+  pointsPartial: null,
+  pointsIncorrect: null
 });
 
 const fetchTasks = () => {
@@ -169,7 +170,8 @@ watch(dialog, (value) => {
       partial1: '0',
       partial2: '0',
       partial3: '0',
-      pointsPartial: null
+      pointsPartial: null,
+      pointsIncorrect: null
     };
   }
 });
@@ -191,7 +193,8 @@ function open (data) {
     partial1: data.partial1,
     partial2: data.partial2,
     partial3: data.partial3,
-    pointsPartial: data.pointsPartial
+    pointsPartial: data.pointsPartial,
+    pointsIncorrect: data.pointsIncorrect
   };
 
   if (data.hasOwnProperty('id')) {
@@ -517,6 +520,23 @@ function filterReset () {
             <div class="col">
               <q-input
                 v-model="task.pointsPartial"
+                :rules="[rules.required]"
+                filled
+                label="Počet bodů"
+                lazy-rules
+                type="number"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <h5 class="text-subtitle2 q-my-sm">Špatná odpověď</h5>
+            </div>
+          </div>
+          <div class="row q-gutter-md">
+            <div class="col-md-2 col-sm-6 col-12">
+              <q-input
+                v-model="task.pointsIncorrect"
                 :rules="[rules.required]"
                 filled
                 label="Počet bodů"

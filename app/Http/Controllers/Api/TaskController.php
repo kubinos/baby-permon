@@ -46,6 +46,7 @@ class TaskController extends Controller
             'partial2' => ['required', 'string'],
             'partial3' => ['required', 'string'],
             'pointsPartial' => ['required', 'integer'],
+            'pointsIncorrect' => ['required', 'integer'],
         ]);
 
         $task = Task::query()
@@ -70,6 +71,7 @@ class TaskController extends Controller
                     '0',
                 ],
                 'points_partial' => $data['pointsPartial'],
+                'points_incorrect' => $data['pointsIncorrect'],
             ]);
 
         return response()->json(
@@ -97,6 +99,7 @@ class TaskController extends Controller
             'partial2' => ['required', 'string'],
             'partial3' => ['required', 'string'],
             'pointsPartial' => ['required', 'integer'],
+            'pointsIncorrect' => ['required', 'integer'],
         ]);
 
         $task = Task::query()
@@ -123,6 +126,7 @@ class TaskController extends Controller
                 '0',
             ],
             'points_partial' => $data['pointsPartial'],
+            'points_incorrect' => $data['pointsIncorrect'],
         ]);
 
         return response()->noContent();

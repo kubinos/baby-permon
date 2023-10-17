@@ -26,6 +26,7 @@ class Task extends Model
         'points_correct',
         'response_partial',
         'points_partial',
+        'points_incorrect',
     ];
 
     protected $casts = [
@@ -38,6 +39,7 @@ class Task extends Model
         'points_correct' => 'integer',
         'response_partial' => 'array',
         'points_partial' => 'integer',
+        'points_incorrect' => 'integer',
     ];
 
     protected $hidden = [

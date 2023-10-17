@@ -31,6 +31,7 @@ class TaskResource extends JsonResource
             'partial2' => Task::parseResponse($this->response_partial)[1],
             'partial3' => Task::parseResponse($this->response_partial)[2],
             'pointsPartial' => $this->points_partial,
+            'pointsIncorrect' => $this->points_incorrect,
         ];
     }
 }
