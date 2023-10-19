@@ -69,6 +69,15 @@ class Task extends Model
         return $this->belongsTo(Sound::class, 'sound_de_id', 'id');
     }
 
+    public function getAnswerClean($prop): array
+    {
+        $response = $this->{$prop};
+
+        return array_map(function (string $item) {
+            return str_split($item)[0];
+        }, $response);
+    }
+
     /**
      * @param array<string> $response
      * @return array<string>

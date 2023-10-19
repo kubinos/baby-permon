@@ -7,11 +7,11 @@ use App\Enums\GameType;
 use App\Enums\Language;
 use App\Enums\Level;
 use DateTimeInterface;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Game extends Model
@@ -24,6 +24,7 @@ class Game extends Model
 
     protected $attributes = [
         'points' => 0,
+        'streak' => 1,
     ];
 
     protected $fillable = [
@@ -31,9 +32,11 @@ class Game extends Model
         'type',
         'salutation',
         'level',
+        'streak',
         'emotion',
         'language',
         'points',
+        'current_task_id',
         'ended_at',
         'created_at',
     ];
@@ -47,6 +50,7 @@ class Game extends Model
         'type' => GameType::class,
         'salutation' => 'string',
         'level' => Level::class,
+        'streak' => 'integer',
         'emotion' => Emotion::class,
         'language' => Language::class,
         'points' => 'integer',
@@ -74,6 +78,11 @@ class Game extends Model
         }
 
         return now()->diffInHours($this->created_at) >= config('game.limit.hours');
+    }
+
+    public function currentTask(): BelongsTo
+    {
+        return $this->belongsTo(Task::class, 'current_task_id', 'id');
     }
 
     protected function serializeDate(DateTimeInterface $date): string

@@ -25,11 +25,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/tryOpenDoor', [PLCController::class, 'tryOpenDoor'])
     ->name('plc.tryOpenDoor');
 
-Route::get('/panelInfo', [PLCController::class, 'tryOpenDoor'])
-    ->name('plc.panelInfo');
+Route::get('/task', [PLCController::class, 'task'])
+    ->name('plc.task');
 
-Route::put('/points', [PLCController::class, 'tryOpenDoor'])
-    ->name('plc.points');
+Route::put('/answer', [PLCController::class, 'answer'])
+    ->name('plc.answer');
 
 // app
 
