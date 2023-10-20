@@ -8,6 +8,7 @@ use App\Enums\Language;
 use App\Enums\Level;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
+use App\Models\GameLog;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Enum;
 use Symfony\Component\HttpFoundation\Response;
@@ -71,5 +72,12 @@ class GameController extends Controller
                 'data' => $game,
             ]
         );
+    }
+
+    public function getLogs(int $gameId): Response
+    {
+        return response()->json([
+            'data' => GameLog::query()->where('game_id', $gameId)->get(),
+        ]);
     }
 }

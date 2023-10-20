@@ -289,8 +289,6 @@ class PLCController extends Controller
                     'game_id' => $game->id,
                     'chip' => $game->chip,
                     'type' => 'task_end_incorrect',
-                    'task_id' => $task->id,
-                    'location' => $task->station->location,
                     'action' => sprintf('Úkol s obtížnosti %d v lokaci %s nebyl nalezen', $difficulty, Location::from($location)->toString()),
                 ]);
         }

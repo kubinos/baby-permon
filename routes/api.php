@@ -65,4 +65,7 @@ Route::group(['prefix' => '/games'], function () {
 
     Route::delete('/{chip}', [GameController::class, 'destroy'])
         ->name('games.destroy');
+
+    Route::get('/logs/{gameId}', [GameController::class, 'getLogs'])
+        ->name('games.logs');
 });

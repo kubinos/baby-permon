@@ -93,3 +93,7 @@ export function createGame (game) {
 export function deleteGame (gameId) {
   return axios.delete(`/api/games/${gameId}`);
 }
+
+export function getGameLogs (gameId) {
+  return axios.get(`/api/games/logs/${gameId}`);
+}
