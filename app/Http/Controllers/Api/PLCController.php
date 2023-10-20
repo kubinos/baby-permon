@@ -16,6 +16,7 @@ class PLCController extends Controller
     public function tryOpenDoor(Request $request): Response
     {
         $game = Game::query()
+            ->whereNull('ended_at')
             ->where('chip', $request->get('chip'))
             ->first();
 
