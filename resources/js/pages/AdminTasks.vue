@@ -96,7 +96,19 @@ const answers = [
   {
     label: 'Číslo 4',
     value: '4'
-  }
+  },
+  {
+    label: 'Číslo 5',
+    value: '5'
+  },
+  {
+    label: 'Číslo 6',
+    value: '6'
+  },
+  {
+    label: 'Číslo 7',
+    value: '7'
+  },
 ];
 
 const form = ref(null);
