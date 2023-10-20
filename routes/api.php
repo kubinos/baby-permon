@@ -60,6 +60,9 @@ Route::group(['prefix' => '/games'], function () {
     Route::get('', [GameController::class, 'index'])
         ->name('games.index');
 
+    Route::get('/active', [GameController::class, 'active'])
+        ->name('games.active');
+
     Route::post('', [GameController::class, 'store'])
         ->name('games.store');
 

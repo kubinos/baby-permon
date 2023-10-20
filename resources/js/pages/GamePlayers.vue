@@ -21,7 +21,7 @@ const columns = [
   },
   {
     name: 'ended',
-    label: 'Konec hry',
+    label: 'Ukončeno',
     field: (row) => row.ended_at !== null ? 'ano' : 'ne',
     align: 'left',
     sortable: true

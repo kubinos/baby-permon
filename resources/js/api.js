@@ -86,6 +86,10 @@ export function getGames () {
   return axios.get('/api/games');
 }
 
+export function getGamesActive () {
+  return axios.get('/api/games/active');
+}
+
 export function createGame (game) {
   return axios.post('/api/games', game);
 }

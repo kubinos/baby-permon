@@ -52,6 +52,10 @@ const menu = ref([
   }
 ]);
 
+const isOverview = computed(() => {
+  return route.name === 'game_overview';
+});
+
 const gameMenu = computed(() => {
   return menu.value.filter(item => item.route.startsWith('game'));
 });
@@ -76,7 +80,7 @@ function logout () {
 
 <template>
   <q-layout view="hHh Lpr lFf">
-    <q-header>
+    <q-header v-if="!isOverview">
       <q-toolbar>
         <q-btn aria-label="Menu" dense flat icon="menu" round @click="drawer = !drawer" />
 
@@ -90,6 +94,7 @@ function logout () {
     </q-header>
 
     <q-drawer
+      v-if="!isOverview"
       v-model="drawer"
       bordered
       show-if-above

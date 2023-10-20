@@ -22,6 +22,17 @@ class GameController extends Controller
         ]);
     }
 
+    public function active(): Response
+    {
+        return response()->json([
+            'data' => Game::query()
+                ->whereIn('type', ['player', 'playground'])
+                ->whereNull('ended_at')
+                ->orderBy('created_at')
+                ->get(),
+        ]);
+    }
+
     public function store(Request $request): Response
     {
         $isPlayer = $request->get('type') === GameType::Player->value;

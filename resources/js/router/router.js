@@ -29,6 +29,11 @@ export const router = createRouter({
       component: () => import('../pages/GamePlayers.vue')
     },
     {
+      path: '/game/overview',
+      name: 'game_overview',
+      component: () => import('../pages/GameOverview.vue')
+    },
+    {
       path: '/admin/sounds',
       name: 'admin_sounds',
       component: () => import('../pages/AdminSounds.vue')
