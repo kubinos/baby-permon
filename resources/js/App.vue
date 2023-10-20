@@ -31,6 +31,11 @@ const menu = ref([
     icon: 'group'
   },
   {
+    name: 'Přehled',
+    route: 'game_overview',
+    icon: 'list'
+  },
+  {
     name: 'Úkoly',
     route: 'admin_tasks',
     icon: 'checklist'

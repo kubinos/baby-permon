@@ -62,9 +62,17 @@ setInterval(() => {
 </script>
 
 <template>
-  <div class="row">
+  <div class="row" style="align-items: center">
     <div class="col">
       <h1 class="text-h4">Přehled / Dashboard</h1>
+    </div>
+    <div class="col text-right">
+      <q-btn
+        flat
+        round
+        icon="close"
+        :to="{ name: 'game_players' }"
+      />
     </div>
   </div>
 
