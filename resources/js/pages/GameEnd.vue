@@ -1,8 +1,12 @@
 <script setup>
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
 import { useQuasar } from 'quasar';
 import { computed, onMounted, ref } from 'vue';
 import { deleteGame, getEnums, getLevels } from '../api.js';
 import { rules } from '../rules.js';
+
+dayjs.extend(duration);
 
 const $q = useQuasar();
 
@@ -51,6 +55,10 @@ function onSubmit () {
       position: 'bottom-right'
     });
   });
+}
+
+function diff(deletedGame) {
+  return dayjs.duration(Math.abs(new Date(deletedGame.ended_at) - new Date(deletedGame.created_at))).format('HH:mm:ss');
 }
 </script>
 
@@ -101,7 +109,8 @@ function onSubmit () {
           Obtížnost: <strong>{{ deletedGame.level }}</strong><br>
           Počet bodů: <strong>{{ deletedGame.points }}</strong><br>
           Oslovení: <strong>{{ deletedGame.salutation }}</strong><br>
-          Nálada: <strong>{{ enums.emotions.find(e => e.key === deletedGame.emotion)?.value ?? deletedGame.emotion }}</strong>
+          Nálada: <strong>{{ enums.emotions.find(e => e.key === deletedGame.emotion)?.value ?? deletedGame.emotion }}</strong><br>
+          Čas ve hře: <strong>{{ diff(deletedGame) }}</strong>
         </div>
       </q-card-section>
 
