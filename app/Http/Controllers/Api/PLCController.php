@@ -123,7 +123,10 @@ class PLCController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        $game = Game::query()->where('chip', $chip)->first();
+        $game = Game::query()
+            ->where('type', 'player')
+            ->where('chip', $chip)
+            ->first();
 
         if (!$game instanceof Game) {
             return response()->json([
