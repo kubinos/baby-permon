@@ -79,7 +79,7 @@ class PLCController extends Controller
         }
 
         $game = Game::query()
-            ->whereNull('time')
+            ->whereNull('labyring_time')
             ->where('chip', $chip)
             ->first();
 
@@ -96,7 +96,7 @@ class PLCController extends Controller
 
         $game->update([
             'points' => $game->points + $points,
-            'time' => $time,
+            'labyring_time' => $time,
         ]);
 
         GameLog::query()
@@ -104,11 +104,12 @@ class PLCController extends Controller
                 'game_id' => $game->id,
                 'chip' => $game->chip,
                 'type' => 'task_labyrint',
-                'location' => 'labyrint',
                 'action' => sprintf('Průchod labyrintem (%d) %s', $points, $note),
             ]);
 
-        return response();
+        return response()->json([
+            'success' => true,
+        ]);
     }
 
     public function task(Request $request): Response

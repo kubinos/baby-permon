@@ -89,7 +89,7 @@ setInterval(() => {
         <template v-slot:body-cell-expiration="props">
           <q-td :props="props">
             <div>
-              <q-badge v-if="Math.abs(new Date() - new Date(props.row.expiration)) <= 900000" class="q-pa-sm" color="red" :label="props.value" />
+                <q-badge v-if="(new Date() > new Date(props.row.expiration)) || Math.abs(new Date() - new Date(props.row.expiration)) <= 900000" class="q-pa-sm" color="red" :label="props.value" />
               <span v-else>{{ props.value }}</span>
             </div>
           </q-td>

@@ -58,7 +58,7 @@ function onSubmit () {
 }
 
 function diff(deletedGame) {
-  return dayjs.duration(Math.abs(new Date(deletedGame.ended_at) - new Date(deletedGame.created_at))).format('HH:mm:ss');
+  return dayjs.duration(dayjs(new Date(deletedGame.ended_at)).diff(dayjs(new Date(deletedGame.created_at)))).format('HH:mm:ss');
 }
 </script>
 
