@@ -31,6 +31,9 @@ Route::get('/task', [PLCController::class, 'task'])
 Route::put('/answer', [PLCController::class, 'answer'])
     ->name('plc.answer');
 
+Route::put('/labyrint', [PLCController::class, 'labyrint'])
+    ->name('plc.labyrint');
+
 // app
 
 Route::group(['prefix' => '/config/level'], function () {

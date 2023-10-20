@@ -34,6 +34,7 @@ class Game extends Model
         'level',
         'streak',
         'emotion',
+        'labyring_time',
         'language',
         'points',
         'current_task_id',

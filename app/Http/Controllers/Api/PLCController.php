@@ -59,6 +59,50 @@ class PLCController extends Controller
         ]);
     }
 
+    public function labyrint(Request $request): Response
+    {
+        $chip = $request->json('chip');
+
+        if (!$chip) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Missing chip',
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $game = Game::query()
+            ->whereNull('time')
+            ->where('chip', $chip)
+            ->first();
+
+        if (!$game instanceof Game) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Invalid chip',
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $points = $request->json('points', 0);
+        $time = $request->json('time', '00:00');
+        $note = $request->json('note', '');
+
+        $game->update([
+            'points' => $game->points + $points,
+            'time' => $time,
+        ]);
+
+        GameLog::query()
+            ->create([
+                'game_id' => $game->id,
+                'chip' => $game->chip,
+                'type' => 'task_labyrint',
+                'location' => 'labyrint',
+                'action' => $note,
+            ]);
+
+        return response();
+    }
+
     public function task(Request $request): Response
     {
         $chip = $request->get('chip');
