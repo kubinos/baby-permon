@@ -97,7 +97,7 @@ class PLCController extends Controller
                 'chip' => $game->chip,
                 'type' => 'task_labyrint',
                 'location' => 'labyrint',
-                'action' => $note,
+                'action' => sprintf('Průchod labyrintem (%d) %s', $points, $note),
             ]);
 
         return response();
@@ -196,7 +196,7 @@ class PLCController extends Controller
                     'type' => 'task_end_correct',
                     'task_id' => $task->id,
                     'location' => $task->station->location,
-                    'action' => 'Správná odpověď na úkol: '.$task->name,
+                    'action' => sprintf("Správná odpověď na úkol: %s - počet bodů: %d", $task->name, $task->points_correct),
                 ]);
 
             return response()->json([
@@ -218,7 +218,7 @@ class PLCController extends Controller
                     'type' => 'task_end_partial',
                     'task_id' => $task->id,
                     'location' => $task->station->location,
-                    'action' => 'Částečná odpověď na úkol: '.$task->name,
+                    'action' => sprintf("Částečná odpověď na úkol: %s - počet bodů: %d", $task->name, $task->points_partial),
                 ]);
 
             return response()->json([
@@ -239,7 +239,7 @@ class PLCController extends Controller
                 'type' => 'task_end_incorrect',
                 'task_id' => $task->id,
                 'location' => $task->station->location,
-                'action' => 'Špatná odpověď na úkol: '.$task->name,
+                'action' => sprintf("Špatná odpověď na úkol: %s - počet bodů: %d", $task->name, $task->points_incorrect),
             ]);
 
         return response()->json([
