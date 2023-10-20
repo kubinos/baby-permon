@@ -15,7 +15,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('game')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
         });
     }
 
