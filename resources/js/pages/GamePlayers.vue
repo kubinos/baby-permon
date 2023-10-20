@@ -34,6 +34,13 @@ const columns = [
     sortable: false
   },
   {
+    name: 'type',
+    label: 'Typ',
+    field: 'type_trans',
+    align: 'left',
+    sortable: false
+  },
+  {
     name: 'salutation',
     label: 'Oslovení',
     field: 'salutation',

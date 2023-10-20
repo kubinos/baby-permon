@@ -43,6 +43,7 @@ class Game extends Model
 
     protected $appends = [
         'expiration',
+        'type_trans',
     ];
 
     protected $casts = [
@@ -63,6 +64,13 @@ class Game extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function typeTrans(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->type->toString(),
+        );
+    }
 
     public function expiration(): Attribute
     {
