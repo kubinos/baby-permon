@@ -35,10 +35,17 @@ class PLCController extends Controller
                 'action' => 'Začátek hry',
             ]);
 
-            $game->update([
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            $hasEntered = GameLog::query()
+                ->where('game_id', $game->id)
+                ->where('action', 'Začátek hry')
+                ->exists();
+
+            if (!$hasEntered) {
+                $game->update([
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
         }
 
         if (intval($request->get('doorId')) === 2) {
@@ -144,7 +151,7 @@ class PLCController extends Controller
                 'type' => 'task_start',
                 'task_id' => $task->id,
                 'location' => $task->station->location,
-                'action' => 'Začátek úkolu: '.$task->name,
+                'action' => 'Načtení úkolu: '.$task->name,
             ]);
 
         return response()->json([
@@ -223,7 +230,7 @@ class PLCController extends Controller
                 ]);
 
             return response()->json([
-                'eval' => 'ok',
+                'eval' => 'partial',
             ]);
         }
 
