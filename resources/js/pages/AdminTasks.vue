@@ -216,7 +216,7 @@ function onSubmit () {
 
       $q.notify({
         color: 'positive',
-        message: 'Zvuk byl upraven.',
+        message: 'Úkol byl upraven.',
         position: 'bottom-right'
       });
 
@@ -224,7 +224,7 @@ function onSubmit () {
     }).catch(() => {
       $q.notify({
         color: 'negative',
-        message: 'Při úpravě zvuku došlo k chybě.',
+        message: 'Při úpravě úkolu došlo k chybě.',
         position: 'bottom-right'
       });
     });
@@ -235,7 +235,7 @@ function onSubmit () {
 
       $q.notify({
         color: 'positive',
-        message: 'Zvuk byl vytvořen.',
+        message: 'Úkol byl vytvořen.',
         position: 'bottom-right'
       });
 
@@ -243,7 +243,7 @@ function onSubmit () {
     }).catch(() => {
       $q.notify({
         color: 'negative',
-        message: 'Při vytváření zvuku došlo k chybě.',
+        message: 'Při vytváření úkolu došlo k chybě.',
         position: 'bottom-right'
       });
     });
@@ -252,8 +252,8 @@ function onSubmit () {
 
 function remove (data) {
   $q.dialog({
-    'title': 'Smazat zvuk',
-    'message': `Opravdu chcete smazat zvuk ${data.name}?`,
+    'title': 'Smazat úkol',
+    'message': `Opravdu chcete smazat úkol ${data.name}?`,
     cancel: true
   }).onOk(() => {
     deleteTask(data.id).then(() => {
@@ -261,13 +261,13 @@ function remove (data) {
 
       $q.notify({
         color: 'positive',
-        message: 'Zvuk byl smazán.',
+        message: 'Úkol byl smazán.',
         position: 'bottom-right'
       });
     }).catch(() => {
       $q.notify({
         color: 'negative',
-        message: 'Při mazání zvuku došlo k chybě.',
+        message: 'Při mazání úkolu došlo k chybě.',
         position: 'bottom-right'
       });
     });
