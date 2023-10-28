@@ -10,6 +10,29 @@ dayjs.extend(relativeTime);
 const loading = ref(false);
 const rows = ref([]);
 
+function formatTime (date) {
+  const ms = new Date(date) - new Date();
+
+  const s = Math.floor(ms / 1000);
+  const m = Math.floor(s / 60) % 60;
+  const h = Math.floor(m / 60);
+
+  return `${h}:${Math.abs(m) > 10 ? Math.abs(m) : '0'+Math.abs(m)}`;
+}
+
+function scrollDownAndUp() {
+  setInterval(function() {
+    window.scrollBy({ left: 0, top: window.innerHeight, behavior: 'smooth' })
+  }, 5000);
+
+  setTimeout(function() {
+    setInterval(function() {
+      window.scrollBy({ left: 0, top: -window.innerHeight, behavior: 'smooth' });
+    }, 5000);
+
+  }, 2500);
+}
+
 const columns = [
   {
     name: 'salutation',
@@ -36,7 +59,7 @@ const columns = [
     name: 'expiration',
     label: 'Konec hry',
     field: 'expiration',
-    format: (_, row) => dayjs().locale('cs').to(row.expiration),
+    format: (_, row) => formatTime(row.expiration),
     align: 'right',
     sortable: false,
   }
@@ -53,6 +76,7 @@ function fetchPlayers () {
 
 onMounted(() => {
   fetchPlayers();
+  scrollDownAndUp();
 });
 
 setInterval(() => {
@@ -62,23 +86,10 @@ setInterval(() => {
 </script>
 
 <template>
-  <div class="row" style="align-items: center">
-    <div class="col">
-      <h1 class="text-h4">Přehled / Dashboard</h1>
-    </div>
-    <div class="col text-right">
-      <q-btn
-        flat
-        round
-        icon="close"
-        :to="{ name: 'game_players' }"
-      />
-    </div>
-  </div>
-
   <div class="row">
     <div class="col">
       <q-table
+        class="overview-table"
         :loading="loading"
         :columns="columns"
         :rows="rows"
@@ -97,4 +108,23 @@ setInterval(() => {
       </q-table>
     </div>
   </div>
+  <div class="row q-mt-lg">
+    <div class="col text-center">
+      <q-btn
+        flat
+        round
+        icon="close"
+        :to="{ name: 'game_players' }"
+      />
+    </div>
+  </div>
 </template>
+
+<style lang="scss">
+.overview-table {
+  td, th, .q-badge {
+    font-size: 66px !important;
+    line-height: 66px !important;
+  }
+}
+</style>
