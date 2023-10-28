@@ -84,9 +84,9 @@ class Task extends Model
      */
     public static function parseResponse(array $response): array
     {
-        $new = ['0', '0', '0'];
+        $new = ['0', '0', '0', '0'];
 
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 4; $i++) {
 
             foreach ($response as $item) {
                 $chars = str_split($item);

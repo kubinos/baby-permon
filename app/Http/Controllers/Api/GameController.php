@@ -55,7 +55,7 @@ class GameController extends Controller
 
         $game = Game::query()
             ->create([
-                'chip' => $data['chip'],
+                'chip' => substr($data['chip'], 2),
                 'salutation' => $data['salutation'],
                 'type' => $data['type'],
                 'level' => $data['level'] ?? Level::One,
@@ -73,7 +73,7 @@ class GameController extends Controller
 
     public function destroy(string $chip): Response
     {
-        $game = Game::query()->firstWhere(['chip' => $chip]);
+        $game = Game::query()->firstWhere(['chip' => substr($chip, 2)]);
         if ($game instanceof Game) {
             $game->delete();
         }

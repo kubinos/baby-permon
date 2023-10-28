@@ -212,7 +212,7 @@ class PLCController extends Controller
                     'type' => 'task_end_correct',
                     'task_id' => $task->id,
                     'location' => $task->station->location,
-                    'action' => sprintf("Správná odpověď na úkol: %s - počet bodů: %d", $task->name, $task->points_correct),
+                    'action' => sprintf("Správná odpověď na úkol: %s - počet bodů: %d (player: %s)", $task->name, $task->points_correct, implode(',', $answer)),
                 ]);
 
             return response()->json([
@@ -234,7 +234,7 @@ class PLCController extends Controller
                     'type' => 'task_end_partial',
                     'task_id' => $task->id,
                     'location' => $task->station->location,
-                    'action' => sprintf("Částečná odpověď na úkol: %s - počet bodů: %d", $task->name, $task->points_partial),
+                    'action' => sprintf("Částečná odpověď na úkol: %s - počet bodů: %d (player: %s, ok: %s)", $task->name, $task->points_partial, implode(',', $answer), implode(',', $task->getAnswerClean('response_correct'))),
                 ]);
 
             return response()->json([
@@ -255,7 +255,7 @@ class PLCController extends Controller
                 'type' => 'task_end_incorrect',
                 'task_id' => $task->id,
                 'location' => $task->station->location,
-                'action' => sprintf("Špatná odpověď na úkol: %s - počet bodů: %d", $task->name, $task->points_incorrect),
+                'action' => sprintf("Špatná odpověď na úkol: %s - počet bodů: %d (player: %s, ok: %s)", $task->name, $task->points_incorrect, implode(',', $answer), implode(',', $task->getAnswerClean('response_correct'))),
             ]);
 
         return response()->json([

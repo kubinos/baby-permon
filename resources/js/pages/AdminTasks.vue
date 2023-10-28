@@ -96,19 +96,7 @@ const answers = [
   {
     label: 'Číslo 4',
     value: '4'
-  },
-  {
-    label: 'Číslo 5',
-    value: '5'
-  },
-  {
-    label: 'Číslo 6',
-    value: '6'
-  },
-  {
-    label: 'Číslo 7',
-    value: '7'
-  },
+  }
 ];
 
 const form = ref(null);
@@ -133,10 +121,12 @@ const task = ref({
   correct1: '0',
   correct2: '0',
   correct3: '0',
+  correct4: '0',
   pointsCorrect: null,
   partial1: '0',
   partial2: '0',
   partial3: '0',
+  partial4: '0',
   pointsPartial: null,
   pointsIncorrect: null
 });
@@ -178,10 +168,12 @@ watch(dialog, (value) => {
       correct1: '0',
       correct2: '0',
       correct3: '0',
+      correct4: '0',
       pointsCorrect: null,
       partial1: '0',
       partial2: '0',
       partial3: '0',
+      partial4: '0',
       pointsPartial: null,
       pointsIncorrect: null
     };
@@ -203,10 +195,12 @@ function open (data) {
       correct1: data.correct1,
       correct2: data.correct2,
       correct3: data.correct3,
+      correct4: data.correct4,
       pointsCorrect: data.pointsCorrect,
       partial1: data.partial1,
       partial2: data.partial2,
       partial3: data.partial3,
+      partial4: data.partial4,
       pointsPartial: data.pointsPartial,
       pointsIncorrect: data.pointsIncorrect
     };
@@ -478,6 +472,18 @@ function filterReset () {
               />
             </div>
             <div class="col">
+              <q-select
+                v-model="task.correct4"
+                :display-value="answers.find(option => option.value === task.correct4)?.label"
+                :options="answers"
+                :rules="[rules.required]"
+                emit-value
+                filled
+                label="Pole 4"
+                lazy-rules
+              />
+            </div>
+            <div class="col">
               <q-input
                 v-model="task.pointsCorrect"
                 :rules="[rules.required]"
@@ -527,6 +533,18 @@ function filterReset () {
                 emit-value
                 filled
                 label="Pole 3"
+                lazy-rules
+              />
+            </div>
+            <div class="col">
+              <q-select
+                v-model="task.partial4"
+                :display-value="answers.find(option => option.value === task.partial4)?.label"
+                :options="answers"
+                :rules="[rules.required]"
+                emit-value
+                filled
+                label="Pole 4"
                 lazy-rules
               />
             </div>

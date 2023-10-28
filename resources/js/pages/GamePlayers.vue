@@ -2,14 +2,16 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/cs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { debounce } from 'quasar';
+import { debounce, useQuasar } from 'quasar';
 import { onMounted, ref } from 'vue';
-import { getGameLogs, getGames } from '../api.js';
+import { deleteGame, getGameLogs, getGames } from '../api.js';
 
 dayjs.extend(relativeTime);
 
 const loading = ref(false);
 const rows = ref([]);
+
+const $q = useQuasar();
 
 const columns = [
   {
@@ -130,6 +132,23 @@ function showLog ({ id, salutation }) {
     dialog.value = true;
   });
 }
+
+function endGame ({ chip }) {
+  $q.dialog({
+    title: 'Ukončení hry',
+    message: 'Opravdu chcete ukončit hru?',
+    cancel: true,
+  }).onOk(() => {
+    deleteGame('00' + chip).then(() => {
+      fetchPlayers();
+
+      $q.notify({
+        color: 'positive',
+        message: 'Hra byla ukončena'
+      });
+    });
+  });
+}
 </script>
 
 <template>
@@ -157,6 +176,9 @@ function showLog ({ id, salutation }) {
           <q-td :props="props">
             <q-btn flat round size="sm" color="primary" @click="showLog(props.row)">
               <q-icon name="visibility" />
+            </q-btn>
+            <q-btn flat round size="sm" color="negative" @click="endGame(props.row)">
+              <q-icon name="delete" />
             </q-btn>
           </q-td>
         </template>
