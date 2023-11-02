@@ -32,17 +32,17 @@ class PLCController extends Controller
         }
 
         if (intval($request->get('doorId')) === 1) {
+            $hasEntered = GameLog::query()
+                ->where('game_id', $game->id)
+                ->where('action', 'Začátek hry')
+                ->exists();
+
             GameLog::query()->create([
                 'game_id' => $game->id,
                 'chip' => $game->chip,
                 'type' => 'info',
                 'action' => 'Začátek hry',
             ]);
-
-            $hasEntered = GameLog::query()
-                ->where('game_id', $game->id)
-                ->where('action', 'Začátek hry')
-                ->exists();
 
             if (!$hasEntered) {
                 $game->update([

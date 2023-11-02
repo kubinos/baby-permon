@@ -29,9 +29,9 @@ const columns = [
     sortable: true
   },
   {
-    name: 'chip',
-    label: 'Čip',
-    field: 'chip',
+    name: 'salutation',
+    label: 'Oslovení',
+    field: 'salutation',
     align: 'left',
     sortable: false
   },
@@ -43,9 +43,9 @@ const columns = [
     sortable: false
   },
   {
-    name: 'salutation',
-    label: 'Oslovení',
-    field: 'salutation',
+    name: 'chip',
+    label: 'Čip',
+    field: 'chip',
     align: 'left',
     sortable: false
   },
@@ -67,7 +67,7 @@ const columns = [
     name: 'expiration',
     label: 'Konec hry',
     field: 'expiration',
-    format: (_, row) => dayjs().locale('cs').to(row.expiration),
+    format: (_, row) => formatTime(row.expiration),
     align: 'left',
     sortable: true,
     sort: (a, b) => dayjs(a).unix() - dayjs(b).unix()
@@ -131,6 +131,16 @@ function showLog ({ id, salutation }) {
     dialogTitle.value = `Detail hráče ${salutation}`;
     dialog.value = true;
   });
+}
+
+function formatTime (date) {
+  const ms = new Date(date) - new Date();
+
+  const s = Math.floor(ms / 1000);
+  const m = Math.floor(s / 60) % 60;
+  const h = Math.floor(s / 3600);
+
+  return `${h}:${Math.abs(m) > 10 ? Math.abs(m) : '0'+Math.abs(m)}`;
 }
 
 function endGame ({ chip }) {

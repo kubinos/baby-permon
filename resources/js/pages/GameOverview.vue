@@ -15,7 +15,7 @@ function formatTime (date) {
 
   const s = Math.floor(ms / 1000);
   const m = Math.floor(s / 60) % 60;
-  const h = Math.floor(m / 60);
+  const h = Math.floor(s / 3600);
 
   return `${h}:${Math.abs(m) > 10 ? Math.abs(m) : '0'+Math.abs(m)}`;
 }

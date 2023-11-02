@@ -40,6 +40,7 @@ class Game extends Model
         'current_task_id',
         'ended_at',
         'created_at',
+        'updated_at',
     ];
 
     protected $appends = [
