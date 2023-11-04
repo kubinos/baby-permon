@@ -23,10 +23,10 @@ enum Level: int
     {
         return match ($this) {
             self::One => [
-                Location::UnderWorld->value => 1,
+                Location::ColorWorld->value => 1,
                 Location::KineticActivity->value => 1,
                 Location::PictureActivity->value => 1,
-                Location::ColorWorld->value => 1,
+                Location::UnderWorld->value => 1,
             ],
             self::Two => [
                 Location::UnderWorld->value => 1,
@@ -36,9 +36,9 @@ enum Level: int
             ],
             self::Three => [
                 Location::UnderWorld->value => 2,
-                Location::KineticActivity->value => 1,
                 Location::PictureActivity->value => 1,
                 Location::ColorWorld->value => 1,
+                Location::KineticActivity->value => 1,
             ],
         };
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\Level;
 use App\Enums\Location;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
@@ -142,6 +143,14 @@ class PLCController extends Controller
         $task = $this->chooseTask($game);
 
         if (!$task instanceof Task) {
+            GameLog::query()
+                ->create([
+                    'game_id' => $game->id,
+                    'chip' => $game->chip,
+                    'type' => 'game_done',
+                    'action' => 'Pokus o načtení úkoli po dokončení hry',
+                ]);
+
             return response()->json([
                 'success' => false,
                 'error' => 'All the tasks are done',
@@ -163,6 +172,7 @@ class PLCController extends Controller
             ]);
 
         return response()->json([
+            'task' => $task->name,
             'sound' => $task->{'sound'.ucfirst($game->language->value)}?->number,
         ]);
     }
@@ -273,7 +283,10 @@ class PLCController extends Controller
 
         $difficulty = $this->clamp($game->level->value + $game->streak, 1, 5);
 
-        foreach ($game->level->rules() as $location => $number) {
+        /** @var Level $level */
+        $level = $game->level;
+
+        foreach ($level->rules() as $location => $number) {
             $prev = GameLog::query()
                 ->where('game_id', $game->id)
                 ->where('location', $location)

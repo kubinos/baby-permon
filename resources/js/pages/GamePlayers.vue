@@ -40,7 +40,7 @@ const columns = [
     label: 'Typ',
     field: 'type_trans',
     align: 'left',
-    sortable: false
+    sortable: true
   },
   {
     name: 'chip',
@@ -159,6 +159,8 @@ function endGame ({ chip }) {
     });
   });
 }
+
+const filter = ref('')
 </script>
 
 <template>
@@ -174,11 +176,17 @@ function endGame ({ chip }) {
         :loading="loading"
         :columns="columns"
         :rows="rows"
+        :filter="filter"
         :pagination="{ rowsPerPage: 20 }"
         bordered
         flat
       >
         <template v-slot:top>
+          <q-input borderless dense debounce="300" v-model="filter" placeholder="Vyhledávání">
+            <template v-slot:prepend>
+              <q-icon name="search" />
+            </template>
+          </q-input>
           <q-space />
           <q-btn color="primary" icon-right="sync" label="Aktualizovat" @click="debouncedFetch" />
         </template>
@@ -197,7 +205,7 @@ function endGame ({ chip }) {
   </div>
 
   <q-dialog v-model="dialog">
-    <q-card style="min-width: 800px;">
+    <q-card style="min-width: 1200px;">
       <q-card-section class="row items-center q-pb-none">
         <div class="text-h6">{{ dialogTitle }}</div>
         <q-space />
