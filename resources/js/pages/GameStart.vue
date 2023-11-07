@@ -88,9 +88,8 @@ function onSubmit () {
           <q-form ref="form" class="q-gutter-md" @submit="onSubmit">
             <q-input
               v-model="model.chip"
-              :rules="[rules.required, rules.chip]"
+              :rules="[rules.required]"
               filled
-              :maxlength="8"
               label="Čip"
               lazy-rules
             />
