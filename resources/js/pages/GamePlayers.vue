@@ -149,7 +149,7 @@ function endGame ({ chip }) {
     message: 'Opravdu chcete ukončit hru?',
     cancel: true,
   }).onOk(() => {
-    deleteGame('00' + chip).then(() => {
+    deleteGame(chip).then(() => {
       fetchPlayers();
 
       $q.notify({
