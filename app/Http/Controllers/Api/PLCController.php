@@ -148,7 +148,7 @@ class PLCController extends Controller
                     'game_id' => $game->id,
                     'chip' => $game->chip,
                     'type' => 'game_done',
-                    'action' => 'Pokus o načtení úkoli po dokončení hry',
+                    'action' => 'Pokus o načtení úkolu po dokončení hry',
                 ]);
 
             return response()->json([
