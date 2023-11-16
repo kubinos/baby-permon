@@ -290,6 +290,8 @@ function filter (val, update, abort) {
 function filterReset () {
   soundsTemp.value = [...sounds.value];
 }
+
+const filterFull = ref('')
 </script>
 
 <template>
@@ -305,10 +307,16 @@ function filterReset () {
         :columns="columns"
         :pagination="{ rowsPerPage: 20 }"
         :rows="rows"
+        :filter="filterFull"
         bordered
         flat
       >
         <template v-slot:top>
+          <q-input borderless dense debounce="300" v-model="filterFull" placeholder="Vyhledávání">
+            <template v-slot:prepend>
+              <q-icon name="search" />
+            </template>
+          </q-input>
           <q-space />
           <q-btn color="primary" icon-right="add" label="Přidat úkol" @click="open" />
         </template>

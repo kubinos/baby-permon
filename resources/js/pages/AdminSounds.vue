@@ -147,6 +147,8 @@ function remove (data) {
     });
   });
 }
+
+const filter = ref('')
 </script>
 
 <template>
@@ -162,10 +164,16 @@ function remove (data) {
         :columns="columns"
         :pagination="{ rowsPerPage: 20 }"
         :rows="rows"
+        :filter="filter"
         bordered
         flat
       >
         <template v-slot:top>
+          <q-input borderless dense debounce="300" v-model="filter" placeholder="Vyhledávání">
+            <template v-slot:prepend>
+              <q-icon name="search" />
+            </template>
+          </q-input>
           <q-space />
           <q-btn color="primary" icon-right="add" label="Přidat zvuk" @click="open" />
         </template>
