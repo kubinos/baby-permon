@@ -172,6 +172,7 @@ class PLCController extends Controller
             ]);
 
         return response()->json([
+            'task' => $task->name,
             'sound' => $task->{'sound'.ucfirst($game->language->value)}?->number,
         ]);
     }
