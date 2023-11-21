@@ -42,7 +42,7 @@ class PLCController extends Controller
                 'game_id' => $game->id,
                 'chip' => $game->chip,
                 'type' => 'info',
-                'action' => 'Začátek hry',
+                'action' => 'Začátek hry (hráč prošel dveřmi)',
             ]);
 
             if (!$hasEntered) {
@@ -58,7 +58,7 @@ class PLCController extends Controller
                 'game_id' => $game->id,
                 'chip' => $game->chip,
                 'type' => 'info',
-                'action' => 'Konec hry',
+                'action' => 'Konec hry (hráč prošel dveřmi)',
             ]);
 
             $game->update([
