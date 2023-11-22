@@ -38,7 +38,7 @@ const columns = [
 ];
 const options = [
   {
-    label: 'Barvosvět',
+    label: 'Stánky',
     value: 'color-world'
   },
   {

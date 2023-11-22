@@ -6,7 +6,7 @@ namespace App\Enums;
 
 enum Location: string
 {
-    case ColorWorld = 'color-world';
+    case Stands = 'color-world';
     case UnderWorld = 'under-world';
     case KineticActivity = 'kinetic-activity';
     case PictureActivity = 'picture-activity';
@@ -14,7 +14,7 @@ enum Location: string
     public function toString(): string
     {
         return match ($this) {
-            self::ColorWorld => 'Barvosvět',
+            self::Stands => 'Stánky',
             self::UnderWorld => 'Podzemí',
             self::KineticActivity => 'Kinetická aktivita',
             self::PictureActivity => 'Obrázková aktivita',
