@@ -20,17 +20,13 @@ function formatTime (date) {
   return `${h}:${Math.abs(m) > 10 ? Math.abs(m) : '0'+Math.abs(m)}`;
 }
 
-function scrollDownAndUp() {
-  setInterval(function() {
-    window.scrollBy({ left: 0, top: window.innerHeight, behavior: 'smooth' })
-  }, 5000);
-
-  setTimeout(function() {
-    setInterval(function() {
-      window.scrollBy({ left: 0, top: -window.innerHeight, behavior: 'smooth' });
-    }, 5000);
-
-  }, 2500);
+var scrollDirection = 1, pageScroll;
+pageScroll = function() {
+  window.scrollBy(0,scrollDirection); // horizontal and vertical scroll increments
+  window.scrolldelay = setTimeout(pageScroll,5); // scrolls every 100 milliseconds
+  if ( (window.scrollY === 0) || (window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+    scrollDirection = -1*scrollDirection;
+  }
 }
 
 const columns = [
@@ -76,7 +72,7 @@ function fetchPlayers () {
 
 onMounted(() => {
   fetchPlayers();
-  scrollDownAndUp();
+  pageScroll();
 });
 
 setInterval(() => {
