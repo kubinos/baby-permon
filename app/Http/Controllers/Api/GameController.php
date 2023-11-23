@@ -53,9 +53,24 @@ class GameController extends Controller
 
         $data = $request->validate($rules);
 
+        $chip = substr($data['chip'], -8);
+
+        $isGameAlreadyInProgress = Game::query()
+            ->where('chip', $chip)
+            ->exists();
+
+        if ($isGameAlreadyInProgress) {
+            return response()->json(
+                [
+                    'message' => 'Tento čip již je ve hře.'
+                ],
+                400
+            );
+        }
+
         $game = Game::query()
             ->create([
-                'chip' => substr($data['chip'], -8),
+                'chip' => $chip,
                 'salutation' => $data['salutation'],
                 'type' => $data['type'],
                 'level' => $data['level'] ?? Level::One,

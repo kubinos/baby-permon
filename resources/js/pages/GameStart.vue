@@ -63,10 +63,10 @@ function onSubmit () {
       message: 'Hra byla založena.',
       position: 'bottom-right'
     });
-  }).catch(() => {
+  }).catch((error) => {
     $q.notify({
       color: 'negative',
-      message: 'Hru se nepodařilo vytvořit.',
+      message: error?.response?.data?.message ?? 'Hru se nepodařilo vytvořit.',
       position: 'bottom-right'
     });
   });
