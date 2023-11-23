@@ -24,6 +24,7 @@ class Game extends Model
 
     protected $attributes = [
         'points' => 0,
+        'labyrint_points' => 0,
         'streak' => 1,
     ];
 
@@ -37,6 +38,7 @@ class Game extends Model
         'labyring_time',
         'language',
         'points',
+        'labyrint_points',
         'current_task_id',
         'ended_at',
         'created_at',
@@ -57,6 +59,7 @@ class Game extends Model
         'emotion' => Emotion::class,
         'language' => Language::class,
         'points' => 'integer',
+        'labyrint_points' => 'integer',
         'ended_at' => 'datetime',
         'expiration' => 'datetime',
     ];

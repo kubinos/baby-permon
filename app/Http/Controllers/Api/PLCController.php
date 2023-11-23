@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\GameType;
 use App\Enums\Level;
 use App\Enums\Location;
 use App\Http\Controllers\Controller;
@@ -84,7 +85,6 @@ class PLCController extends Controller
         }
 
         $game = Game::query()
-            ->whereNull('labyring_time')
             ->where('chip', $chip)
             ->first();
 
@@ -99,17 +99,24 @@ class PLCController extends Controller
         $time = $request->json('time', '00:00');
         $note = $request->json('note', '');
 
-        $game->update([
-            'points' => $game->points + $points,
-            'labyring_time' => $time,
-        ]);
+        $isBetterTime = $points > $game->labyrint_points;
+
+        if ($isBetterTime) {
+            $gamePoints = $game->points - $game->labyrint_points;
+
+            $game->update([
+                'points' => $gamePoints + $points,
+                'labyrint_points' => $points,
+                'labyring_time' => $time,
+            ]);
+        }
 
         GameLog::query()
             ->create([
                 'game_id' => $game->id,
                 'chip' => $game->chip,
                 'type' => 'task_labyrint',
-                'action' => sprintf('Průchod labyrintem (%d) %s', $points, $note),
+                'action' => sprintf('Průchod labyrintem (body: %d; čas: %s) %s', $points, $time, $note),
             ]);
 
         return response()->json([
@@ -227,6 +234,7 @@ class PLCController extends Controller
 
             return response()->json([
                 'eval' => 'ok',
+                'labyrint' => $this->didYouJustFinishUnderWorld($game, $task),
             ]);
         }
 
@@ -249,6 +257,7 @@ class PLCController extends Controller
 
             return response()->json([
                 'eval' => 'partial',
+                'labyrint' => $this->didYouJustFinishUnderWorld($game, $task),
             ]);
         }
 
@@ -270,6 +279,7 @@ class PLCController extends Controller
 
         return response()->json([
             'eval' => 'fail',
+            'labyrint' => $this->didYouJustFinishUnderWorld($game, $task),
         ]);
     }
 
@@ -323,6 +333,29 @@ class PLCController extends Controller
         }
 
         return null;
+    }
+
+    private function didYouJustFinishUnderWorld(Game $game, Task $task): bool
+    {
+        if ($task->station->location !== Location::UnderWorld) {
+            return false;
+        }
+
+        if ($game->type !== GameType::Player) {
+            return false;
+        }
+
+        $gameLogCount = GameLog::query()
+            ->where('game_id', $game->id)
+            ->where('type', 'like', 'task_end%')
+            ->where('location', Location::UnderWorld->value)
+            ->count();
+
+
+        /** @var Level $level */
+        $level = $game->level;
+
+        return $level->rules()[Location::UnderWorld->value] === $gameLogCount;
     }
 
     private function isInProgress(Game $game): bool
