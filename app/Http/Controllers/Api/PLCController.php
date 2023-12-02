@@ -96,7 +96,7 @@ class PLCController extends Controller
         }
 
         $points = $request->json('points', 0);
-        $time = $request->json('time', '--:--');
+        $time = $request->json('time', $request->json('Time', '--:--'));
         $note = $request->json('note', '');
 
         $isBetterTime = $points > $game->labyrint_points;
