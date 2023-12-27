@@ -158,10 +158,15 @@ class PLCController extends Controller
                     'action' => 'Pokus o načtení úkolu po dokončení hry',
                 ]);
 
+            // Požadevek Petra vracet sound: "zaver". Originální odpověď dole v komentáři
             return response()->json([
-                'success' => false,
-                'error' => 'All the tasks are done',
-            ], Response::HTTP_BAD_REQUEST);
+                'sound' => 'zaver',
+            ]);
+
+//            return response()->json([
+//                'success' => false,
+//                'error' => 'All the tasks are done',
+//            ], Response::HTTP_BAD_REQUEST);
         }
 
         $game->update([
@@ -179,7 +184,6 @@ class PLCController extends Controller
             ]);
 
         return response()->json([
-            'task' => $task->name,
             'sound' => $task->{'sound'.ucfirst($game->language->value)}?->number,
         ]);
     }
