@@ -160,7 +160,7 @@ class PLCController extends Controller
 
             // Požadevek Petra vracet sound: "zaver". Originální odpověď dole v komentáři
             return response()->json([
-                'sound' => 'zaver',
+                'sound' => '/zaver/',
             ]);
 
 //            return response()->json([

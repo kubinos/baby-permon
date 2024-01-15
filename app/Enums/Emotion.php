@@ -6,16 +6,22 @@ namespace App\Enums;
 
 enum Emotion: string
 {
-    case Happy = 'happy';
-    case Sad = 'sad';
     case Angry = 'angry';
+    case Sad = 'sad';
+    case Happy = 'happy';
+    case Rostak = 'rostak';
+    case Zadumanek = 'zadumanek';
+    case Bojanek = 'bojanek';
 
     public function toString(): string
     {
         return match ($this) {
-            self::Happy => 'Šťastný',
-            self::Sad => 'Smutný',
-            self::Angry => 'Naštvaný',
+            self::Angry => 'Zlobílek',
+            self::Sad => 'Uplakánek',
+            self::Rostak => 'Rošťáček',
+            self::Happy => 'Pohodáček',
+            self::Zadumanek => 'Zadumánek',
+            self::Bojanek => 'Bojánek',
         };
     }
 }
