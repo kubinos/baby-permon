@@ -36,7 +36,7 @@ class PLCController extends Controller
         if (intval($request->get('doorId')) === 1) {
             $hasEntered = GameLog::query()
                 ->where('game_id', $game->id)
-                ->where('action', 'Začátek hry')
+                ->where('action', 'Začátek hry (hráč prošel dveřmi)')
                 ->exists();
 
             GameLog::query()->create([
