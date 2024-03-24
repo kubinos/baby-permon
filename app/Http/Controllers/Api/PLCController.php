@@ -304,6 +304,7 @@ class PLCController extends Controller
             $prev = GameLog::query()
                 ->where('game_id', $game->id)
                 ->where('location', $location)
+                ->where('type', 'like', 'task_end_%')
                 ->get();
 
             $locationDone = count($prev) >= $number;
